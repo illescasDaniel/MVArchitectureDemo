@@ -1,0 +1,18 @@
+{
+  "request": {
+    "method": "PATCH",
+    "urlPattern": "/notes/[\\d\\w-]+",
+    "bodyPatterns": [{
+        "equalToJson": { "content": "${json-unit.any-string}" }
+    }]
+  },
+
+  "response": {
+    "status": 204,
+    "headers": {
+        "Content-Type": "application/json"
+    },
+    "jsonBody": {}
+  }
+}
+

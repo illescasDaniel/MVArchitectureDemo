@@ -1,0 +1,42 @@
+{
+  "configurations" : [
+    {
+      "id" : "D4C755DB-259B-445A-85D4-3BCE4079E141",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "commandLineArgumentEntries" : [
+      {
+        "argument" : "-isTest 1"
+      }
+    ],
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:MVArchitectureDemo.xcodeproj",
+      "identifier" : "6578B3912AD4840D0004F2F4",
+      "name" : "MVArchitectureDemo"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:MVArchitectureDemo.xcodeproj",
+        "identifier" : "6578B3A22AD4840E0004F2F4",
+        "name" : "MVArchitectureDemoTests"
+      }
+    },
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:MVArchitectureDemo.xcodeproj",
+        "identifier" : "6578B3AC2AD4840E0004F2F4",
+        "name" : "MVArchitectureDemoUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

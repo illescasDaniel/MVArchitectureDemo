@@ -1,0 +1,7 @@
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+PRODUCT_BUNDLE_IDENTIFIER=com.your_id.MVArchitectureDemo
+TESTS_PRODUCT_BUNDLE_IDENTIFIER=com.your_id.MVArchitectureDemoTests
+UI_TESTS_PRODUCT_BUNDLE_IDENTIFIER=com.your_id.MVArchitectureDemoUITests
+DEVELOPMENT_TEAM=your_team_id
