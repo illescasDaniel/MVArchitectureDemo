@@ -1,15 +1,14 @@
 {
 	"request": {
 		"method": "GET",
-		"url": "/isAvailable"
+		"url": "/notes"
 	},
-	
+
 	"response": {
-		"status": 200,
+		"status": 500,
 		"headers": {
 			"Content-Type": "application/json"
 		},
 		"jsonBody": {}
 	}
 }
-

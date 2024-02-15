@@ -25,7 +25,7 @@ final class NoteTests: XCTestCase {
 	}
 
 	func test_GivenServerHasData_WhenFetchNotes_ThenCorrectNotesMatch() async throws {
-		let notes = try await Note.all()
+		let notes = try await withMock(name: "notes_success", action: Note.all)
 		XCTAssertEqual(
 			notes,
 			[.init(id: "1", name: "Note1", content: "some content here"),
@@ -35,9 +35,9 @@ final class NoteTests: XCTestCase {
 
 	func test_GivenServerFailure_WhenFetchNotes_ThenThrowsError() async throws {
 		do {
-			try await Config.httpClient.withMock(response: .statusCode(500), path: "/notes", block: Note.all)
+			try await withMock(name: "notes_failure_500", action: Note.all)
 		} catch AppNetworkResponseError.unexpected(statusCode: 500) {
-			// OK
+			// ok
 		} catch {
 			XCTFail("Error: \(error). Description: \(error.localizedDescription)")
 		}
