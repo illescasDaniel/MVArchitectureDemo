@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		651A39C72B7E7FED001B3AB9 /* update_content.json in Resources */ = {isa = PBXBuildFile; fileRef = 651A39C22B7E7FED001B3AB9 /* update_content.json */; };
+		651A39C82B7E7FED001B3AB9 /* update_name.json in Resources */ = {isa = PBXBuildFile; fileRef = 651A39C32B7E7FED001B3AB9 /* update_name.json */; };
+		651A39C92B7E7FED001B3AB9 /* update_patch.json in Resources */ = {isa = PBXBuildFile; fileRef = 651A39C42B7E7FED001B3AB9 /* update_patch.json */; };
+		651A39CA2B7E7FED001B3AB9 /* notes.json in Resources */ = {isa = PBXBuildFile; fileRef = 651A39C52B7E7FED001B3AB9 /* notes.json */; };
+		651A39CB2B7E7FED001B3AB9 /* isAvailable.json in Resources */ = {isa = PBXBuildFile; fileRef = 651A39C62B7E7FED001B3AB9 /* isAvailable.json */; };
 		652305C32B53EAF500107A1E /* HTTPURLScheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305C22B53EAF500107A1E /* HTTPURLScheme.swift */; };
 		652305C62B53F14500107A1E /* ViewStateOverlayModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305C52B53F14500107A1E /* ViewStateOverlayModifier.swift */; };
 		652305C82B53F16100107A1E /* DataLoadingViewModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305C72B53F16100107A1E /* DataLoadingViewModifier.swift */; };
@@ -61,6 +66,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		651A39C22B7E7FED001B3AB9 /* update_content.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = update_content.json; sourceTree = "<group>"; };
+		651A39C32B7E7FED001B3AB9 /* update_name.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = update_name.json; sourceTree = "<group>"; };
+		651A39C42B7E7FED001B3AB9 /* update_patch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = update_patch.json; sourceTree = "<group>"; };
+		651A39C52B7E7FED001B3AB9 /* notes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notes.json; sourceTree = "<group>"; };
+		651A39C62B7E7FED001B3AB9 /* isAvailable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = isAvailable.json; sourceTree = "<group>"; };
 		652305C22B53EAF500107A1E /* HTTPURLScheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPURLScheme.swift; sourceTree = "<group>"; };
 		652305C52B53F14500107A1E /* ViewStateOverlayModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewStateOverlayModifier.swift; sourceTree = "<group>"; };
 		652305C72B53F16100107A1E /* DataLoadingViewModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataLoadingViewModifier.swift; sourceTree = "<group>"; };
@@ -127,6 +137,58 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		651A39BC2B7E7FA0001B3AB9 /* mock_requests */ = {
+			isa = PBXGroup;
+			children = (
+				651A39BD2B7E7FA6001B3AB9 /* app */,
+				651A39BE2B7E7FAA001B3AB9 /* tests */,
+			);
+			path = mock_requests;
+			sourceTree = "<group>";
+		};
+		651A39BD2B7E7FA6001B3AB9 /* app */ = {
+			isa = PBXGroup;
+			children = (
+				651A39BF2B7E7FED001B3AB9 /* __files */,
+				651A39C02B7E7FED001B3AB9 /* mappings */,
+			);
+			path = app;
+			sourceTree = "<group>";
+		};
+		651A39BE2B7E7FAA001B3AB9 /* tests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = tests;
+			sourceTree = "<group>";
+		};
+		651A39BF2B7E7FED001B3AB9 /* __files */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = __files;
+			sourceTree = "<group>";
+		};
+		651A39C02B7E7FED001B3AB9 /* mappings */ = {
+			isa = PBXGroup;
+			children = (
+				651A39C12B7E7FED001B3AB9 /* note */,
+				651A39C52B7E7FED001B3AB9 /* notes.json */,
+				651A39C62B7E7FED001B3AB9 /* isAvailable.json */,
+			);
+			path = mappings;
+			sourceTree = "<group>";
+		};
+		651A39C12B7E7FED001B3AB9 /* note */ = {
+			isa = PBXGroup;
+			children = (
+				651A39C22B7E7FED001B3AB9 /* update_content.json */,
+				651A39C32B7E7FED001B3AB9 /* update_name.json */,
+				651A39C42B7E7FED001B3AB9 /* update_patch.json */,
+			);
+			path = note;
+			sourceTree = "<group>";
+		};
 		652305C12B53E9FE00107A1E /* debug_only */ = {
 			isa = PBXGroup;
 			children = (
@@ -256,6 +318,7 @@
 		6578B39C2AD4840E0004F2F4 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
+				651A39BC2B7E7FA0001B3AB9 /* mock_requests */,
 				6578B39D2AD4840E0004F2F4 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
@@ -477,7 +540,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6578B39E2AD4840E0004F2F4 /* Preview Assets.xcassets in Resources */,
+				651A39C72B7E7FED001B3AB9 /* update_content.json in Resources */,
 				652305CD2B53FB7C00107A1E /* Config.xcconfig in Resources */,
+				651A39CA2B7E7FED001B3AB9 /* notes.json in Resources */,
+				651A39C92B7E7FED001B3AB9 /* update_patch.json in Resources */,
+				651A39CB2B7E7FED001B3AB9 /* isAvailable.json in Resources */,
+				651A39C82B7E7FED001B3AB9 /* update_name.json in Resources */,
 				6578B39A2AD4840E0004F2F4 /* Assets.xcassets in Resources */,
 				652305CF2B53FBEA00107A1E /* Config.xcconfig.sample.xcconfig in Resources */,
 			);
@@ -699,7 +767,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"MVArchitectureDemo/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "MVArchitectureDemo/Preview\\ Content MVArchitectureDemo/Preview\\ Content/mock_requests";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
@@ -737,7 +805,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"MVArchitectureDemo/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "MVArchitectureDemo/Preview\\ Content MVArchitectureDemo/Preview\\ Content/mock_requests";
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;

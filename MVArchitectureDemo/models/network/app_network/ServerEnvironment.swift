@@ -10,14 +10,14 @@ import Foundation
 enum ServerEnvironment {
 
 	case production
-	case localhost
+	case localApp
 
 	var baseURL: URL {
 		switch self {
 		case .production:
 			// TO DO: change url
 			return URL(string: "http://localhost:8080")!
-		case .localhost:
+		case .localApp:
 			return URL(string: "http://localhost:8080")!
 		}
 	}

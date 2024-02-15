@@ -14,7 +14,7 @@ final class Config {
 
 	// Debug user could change environment in Settings app
 	// then we could get the current environment using UserDefaults
-	static var environment: ServerEnvironment = ServerEnvironment.localhost
+	static var environment: ServerEnvironment = ServerEnvironment.localApp
 
 	static var isNetworkDelayEnabled: Bool {
 		let isTest = UserDefaults.standard.bool(forKey: "isTest")
