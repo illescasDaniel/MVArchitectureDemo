@@ -11,6 +11,7 @@ enum ServerEnvironment {
 
 	case production
 	case localApp
+	case localTests
 
 	var baseURL: URL {
 		switch self {
@@ -19,6 +20,8 @@ enum ServerEnvironment {
 			return URL(string: "http://localhost:8080")!
 		case .localApp:
 			return URL(string: "http://localhost:8080")!
+		case .localTests:
+			return URL(string: "http://localhost:8081")!
 		}
 	}
 }

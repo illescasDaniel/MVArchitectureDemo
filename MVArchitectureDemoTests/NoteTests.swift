@@ -19,6 +19,11 @@ final class NoteTests: XCTestCase {
 	// ---
 	// TIP: when unsure, ask your favorite LLM about naming the function
 
+	override class func setUp() {
+		super.setUp()
+		Config.environment = .localTests
+	}
+
 	func test_GivenServerHasData_WhenFetchNotes_ThenCorrectNotesMatch() async throws {
 		let notes = try await Note.all()
 		XCTAssertEqual(
