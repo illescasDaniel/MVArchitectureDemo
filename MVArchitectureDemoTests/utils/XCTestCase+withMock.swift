@@ -10,32 +10,47 @@ import XCTest
 @testable import MVArchitectureDemo
 
 extension XCTestCase {
+	
+	private func mockURL() throws -> URL {
+		let url = try XCTUnwrap(Config.environment.baseURL.appending(path: "__admin/mappings"))
+		return url
+	}
+
+	private func createMockStubsRequest(data: Data) async throws {
+		var deleteMockRequest = URLRequest(url: try mockURL().appending(path: "reset"))
+		deleteMockRequest.httpMethod = "POST"
+		let (_, deleteMockResponse) = try await URLSession(configuration: .default).data(for: deleteMockRequest)
+		let deleteMockHTTPResponse = try XCTUnwrap(deleteMockResponse as? HTTPURLResponse)
+		XCTAssertEqual(deleteMockHTTPResponse.statusCode, 200)
+	}
+
+	private func deleteMockStubsRequest() async throws {
+		var deleteMockRequest = URLRequest(url: try mockURL().appending(path: "reset"))
+		deleteMockRequest.httpMethod = "POST"
+		let (_, deleteMockResponse) = try await URLSession(configuration: .default).data(for: deleteMockRequest)
+		let deleteMockHTTPResponse = try XCTUnwrap(deleteMockResponse as? HTTPURLResponse)
+		XCTAssertEqual(deleteMockHTTPResponse.statusCode, 200)
+	}
+
 	@discardableResult
 	func withMock<T>(
 		name mockName: String,
-		action: () async throws -> T,
-		file: StaticString = #filePath,
-		line: UInt = #line
+		action: () async throws -> T
 	) async throws -> T {
-		let mockFile = try XCTUnwrap(Bundle(for: Self.self).url(forResource: mockName, withExtension: "json")?.path(percentEncoded: false))
-		let data = FileManager.default.contents(atPath: mockFile)
-		let url = try XCTUnwrap(Config.environment.baseURL.appending(path: "__admin/mappings"))
+		do {
+			let mockFile = try XCTUnwrap(Bundle(for: Self.self).url(forResource: mockName, withExtension: "json")?.path(percentEncoded: false))
+			let data = try XCTUnwrap(FileManager.default.contents(atPath: mockFile))
 
-		var createMockRequest = URLRequest(url: url)
-		createMockRequest.httpMethod = "POST"
-		createMockRequest.httpBody = data
-		let (_, createMockResponse) = try await URLSession(configuration: .default).data(for: createMockRequest)
-		let createMockHTTPResponse = try XCTUnwrap(createMockResponse as? HTTPURLResponse)
-		XCTAssertEqual(createMockHTTPResponse.statusCode, 201, file: file, line: line)
+			try await createMockStubsRequest(data: data)
 
-		let result = try await action()
+			let result = try await action()
 
-//		var deleteMockRequest = URLRequest(url: url)
-//		deleteMockRequest.httpMethod = "DELETE"
-//		let (_, deleteMockResponse) = try await URLSession(configuration: .default).data(for: deleteMockRequest)
-//		let deleteMockHTTPResponse = try XCTUnwrap(deleteMockResponse as? HTTPURLResponse)
-//		XCTAssertEqual(deleteMockHTTPResponse.statusCode, 200, file: file, line: line)
+			try? await deleteMockStubsRequest()
 
-		return result
+			return result
+		} catch {
+			try? await deleteMockStubsRequest()
+			throw error
+		}
 	}
 }

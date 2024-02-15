@@ -194,6 +194,7 @@
 		651A39E02B7EB287001B3AB9 /* tests */ = {
 			isa = PBXGroup;
 			children = (
+				651A39E72B7EB287001B3AB9 /* notes_failure_500.json */,
 				651A39E12B7EB287001B3AB9 /* __files */,
 				651A39E22B7EB287001B3AB9 /* mappings */,
 			);
@@ -211,7 +212,6 @@
 			isa = PBXGroup;
 			children = (
 				651A39E32B7EB287001B3AB9 /* note */,
-				651A39E72B7EB287001B3AB9 /* notes_failure_500.json */,
 				651A39E82B7EB287001B3AB9 /* notes_success.json */,
 				651A39E92B7EB287001B3AB9 /* isAvailable_success.json */,
 			);
