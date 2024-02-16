@@ -38,7 +38,12 @@ enum ViewState {
 		do {
 			let newData = try await newData()
 			// TO DO: maybe we could create a Empty protocol in which some data could specify if it is considered to be empty
-			// for example an Note type with empty name and empty content could be considered 'empty'...
+			// for example a Note type with empty name and empty content could be considered 'empty'...
+			// protocol IsEmpty {
+			// var isEmpty: Bool { get }
+			//}
+			// extension String: IsEmpty {}
+			// extension Array: IsEmpty {}
 			return (.success, newData)
 		} catch {
 			return (.error(error), oldData)

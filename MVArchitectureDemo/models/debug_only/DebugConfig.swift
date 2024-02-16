@@ -17,8 +17,16 @@ final class Config {
 	// Currently, the environment is different for unit tests.
 	static var environment: ServerEnvironment = ServerEnvironment.localApp
 
-	static var isTest: Bool {
-		UserDefaults.standard.bool(forKey: "isTest")
+	static var isRunningUnitTests: Bool {
+		UserDefaults.standard.bool(forKey: "isRunningUnitTests")
+	}
+
+	static var isRunningUITests: Bool {
+		ProcessInfo.processInfo.arguments.contains("-runningUITests")
+	}
+
+	static var isRunningWithoutTests: Bool {
+		!isRunningUnitTests && !isRunningUITests
 	}
 }
 #endif

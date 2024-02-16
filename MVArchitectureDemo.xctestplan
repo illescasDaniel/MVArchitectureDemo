@@ -11,7 +11,7 @@
   "defaultOptions" : {
     "commandLineArgumentEntries" : [
       {
-        "argument" : "-isTest 1"
+        "argument" : "-isRunningUnitTests 1"
       }
     ],
     "targetForVariableExpansion" : {
@@ -26,13 +26,6 @@
         "containerPath" : "container:MVArchitectureDemo.xcodeproj",
         "identifier" : "6578B3A22AD4840E0004F2F4",
         "name" : "MVArchitectureDemoTests"
-      }
-    },
-    {
-      "target" : {
-        "containerPath" : "container:MVArchitectureDemo.xcodeproj",
-        "identifier" : "6578B3AC2AD4840E0004F2F4",
-        "name" : "MVArchitectureDemoUITests"
       }
     }
   ],

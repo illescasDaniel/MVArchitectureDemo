@@ -9,8 +9,11 @@ import SwiftUI
 
 struct NotesScreenView: View {
 	
-	@State var notes: [Note] = []
-	@State var viewState: ViewState = .idle
+	@State
+	private var viewState: ViewState = .idle
+
+	@State
+	private var notes: [Note] = []
 
 	var body: some View {
 		NavigationStack {

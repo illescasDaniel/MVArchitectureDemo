@@ -21,7 +21,7 @@ final class DebugHTTPClient: HTTPClient {
 	}
 
 	func data(for httpRequest: HTTPURLRequest) async throws -> (Data, HTTPURLResponse) {
-		if !Config.isTest && !networkDelayIsSetUp {
+		if Config.isRunningWithoutTests && !networkDelayIsSetUp {
 			try await setUpNetworkDelay()
 			networkDelayIsSetUp = true
 		}

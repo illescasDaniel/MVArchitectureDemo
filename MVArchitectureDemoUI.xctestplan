@@ -1,0 +1,24 @@
+{
+  "configurations" : [
+    {
+      "id" : "F971888C-0007-4EBC-A10C-44AE8EDF7711",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "target" : {
+        "containerPath" : "container:MVArchitectureDemo.xcodeproj",
+        "identifier" : "6578B3AC2AD4840E0004F2F4",
+        "name" : "MVArchitectureDemoUITests"
+      }
+    }
+  ],
+  "version" : 1
+}

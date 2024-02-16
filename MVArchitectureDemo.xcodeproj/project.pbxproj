@@ -30,6 +30,7 @@
 		652305EA2B5422C700107A1E /* Note+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305E92B5422C700107A1E /* Note+Protocols.swift */; };
 		6555B2522B7F5F2600ED8A8C /* note_update_content_name_failure_404.json in Resources */ = {isa = PBXBuildFile; fileRef = 6555B2512B7F5F2600ED8A8C /* note_update_content_name_failure_404.json */; };
 		6555B2542B7F5FC000ED8A8C /* MVXCTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6555B2532B7F5FC000ED8A8C /* MVXCTestCase.swift */; };
+		6555B25B2B7FABFB00ED8A8C /* XCTestCase+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6555B25A2B7FABFB00ED8A8C /* XCTestCase+App.swift */; };
 		6565DE392AE0039E00E95FAE /* HTTPURLResponse+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6565DE382AE0039E00E95FAE /* HTTPURLResponse+Extension.swift */; };
 		656EBD452B48A18500043A1A /* DictionaryRepresentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 656EBD442B48A18500043A1A /* DictionaryRepresentable.swift */; };
 		6578B3962AD4840D0004F2F4 /* MVArchitectureDemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6578B3952AD4840D0004F2F4 /* MVArchitectureDemoApp.swift */; };
@@ -96,6 +97,8 @@
 		652305E92B5422C700107A1E /* Note+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+Protocols.swift"; sourceTree = "<group>"; };
 		6555B2512B7F5F2600ED8A8C /* note_update_content_name_failure_404.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = note_update_content_name_failure_404.json; sourceTree = "<group>"; };
 		6555B2532B7F5FC000ED8A8C /* MVXCTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MVXCTestCase.swift; sourceTree = "<group>"; };
+		6555B2562B7FA0B700ED8A8C /* MVArchitectureDemoUI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MVArchitectureDemoUI.xctestplan; sourceTree = "<group>"; };
+		6555B25A2B7FABFB00ED8A8C /* XCTestCase+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+App.swift"; sourceTree = "<group>"; };
 		6565DE382AE0039E00E95FAE /* HTTPURLResponse+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "HTTPURLResponse+Extension.swift"; sourceTree = "<group>"; };
 		656EBD442B48A18500043A1A /* DictionaryRepresentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DictionaryRepresentable.swift; sourceTree = "<group>"; };
 		6578B3922AD4840D0004F2F4 /* MVArchitectureDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MVArchitectureDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -254,9 +257,8 @@
 		652305D02B53FDA500107A1E /* Tests */ = {
 			isa = PBXGroup;
 			children = (
-				65AC83C62AD5388E0045F183 /* MVArchitectureDemo.xctestplan */,
-				6578B3A62AD4840E0004F2F4 /* MVArchitectureDemoTests */,
-				6578B3B02AD4840E0004F2F4 /* MVArchitectureDemoUITests */,
+				6555B2572B7FA0C600ED8A8C /* Unit Tests */,
+				6555B2582B7FA0D100ED8A8C /* UI Tests */,
 			);
 			name = Tests;
 			sourceTree = "<group>";
@@ -353,6 +355,32 @@
 			path = stubs;
 			sourceTree = "<group>";
 		};
+		6555B2572B7FA0C600ED8A8C /* Unit Tests */ = {
+			isa = PBXGroup;
+			children = (
+				65AC83C62AD5388E0045F183 /* MVArchitectureDemo.xctestplan */,
+				6578B3A62AD4840E0004F2F4 /* MVArchitectureDemoTests */,
+			);
+			name = "Unit Tests";
+			sourceTree = "<group>";
+		};
+		6555B2582B7FA0D100ED8A8C /* UI Tests */ = {
+			isa = PBXGroup;
+			children = (
+				6555B2562B7FA0B700ED8A8C /* MVArchitectureDemoUI.xctestplan */,
+				6578B3B02AD4840E0004F2F4 /* MVArchitectureDemoUITests */,
+			);
+			name = "UI Tests";
+			sourceTree = "<group>";
+		};
+		6555B2592B7FABDA00ED8A8C /* utils */ = {
+			isa = PBXGroup;
+			children = (
+				6555B25A2B7FABFB00ED8A8C /* XCTestCase+App.swift */,
+			);
+			path = utils;
+			sourceTree = "<group>";
+		};
 		6578B3892AD4840D0004F2F4 = {
 			isa = PBXGroup;
 			children = (
@@ -408,6 +436,7 @@
 		6578B3B02AD4840E0004F2F4 /* MVArchitectureDemoUITests */ = {
 			isa = PBXGroup;
 			children = (
+				6555B2592B7FABDA00ED8A8C /* utils */,
 				6578B3B12AD4840E0004F2F4 /* MVArchitectureDemoUITests.swift */,
 				6578B3B32AD4840E0004F2F4 /* MVArchitectureDemoUITestsLaunchTests.swift */,
 			);
@@ -690,6 +719,7 @@
 			files = (
 				6578B3B22AD4840E0004F2F4 /* MVArchitectureDemoUITests.swift in Sources */,
 				6578B3B42AD4840E0004F2F4 /* MVArchitectureDemoUITestsLaunchTests.swift in Sources */,
+				6555B25B2B7FABFB00ED8A8C /* XCTestCase+App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
