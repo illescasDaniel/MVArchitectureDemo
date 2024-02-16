@@ -25,7 +25,7 @@ final class NoteTests: XCTestCase {
 	}
 
 	func test_GivenServerHasData_WhenFetchNotes_ThenCorrectNotesMatch() async throws {
-		let notes = try await withMock(name: "notes_success", action: Note.all)
+		let notes = try await withMock("notes_success", action: Note.all)
 		XCTAssertEqual(
 			notes,
 			[.init(id: "1", name: "Note1", content: "some content here"),
@@ -35,7 +35,7 @@ final class NoteTests: XCTestCase {
 
 	func test_GivenServerFailure_WhenFetchNotes_ThenThrowsError() async throws {
 		do {
-			try await withMock(name: "notes_failure_500", action: Note.all)
+			try await withMock("notes_failure_500", action: Note.all)
 		} catch AppNetworkResponseError.unexpected(statusCode: 500) {
 			// ok
 		} catch {
@@ -47,7 +47,7 @@ final class NoteTests: XCTestCase {
 		let note = Note(id: "a", name: "b", content: "c")
 		note.name = "planta"
 		note.content = "bla bla bla"
-		try await note.update()
+		try await withMock("note_update_content_name_success", action: note.update)
 	}
 
 	func test_GivenValidNote_WhenUpdateNoteNameTwice_ThenUpdatedNoteNameIsLatest() async throws {

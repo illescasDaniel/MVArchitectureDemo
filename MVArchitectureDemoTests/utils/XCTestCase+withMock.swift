@@ -10,31 +10,9 @@ import XCTest
 @testable import MVArchitectureDemo
 
 extension XCTestCase {
-	
-	private func mockURL() throws -> URL {
-		let url = try XCTUnwrap(Config.environment.baseURL.appending(path: "__admin/mappings"))
-		return url
-	}
-
-	private func createMockStubsRequest(data: Data) async throws {
-		var deleteMockRequest = URLRequest(url: try mockURL().appending(path: "reset"))
-		deleteMockRequest.httpMethod = "POST"
-		let (_, deleteMockResponse) = try await URLSession(configuration: .default).data(for: deleteMockRequest)
-		let deleteMockHTTPResponse = try XCTUnwrap(deleteMockResponse as? HTTPURLResponse)
-		XCTAssertEqual(deleteMockHTTPResponse.statusCode, 200)
-	}
-
-	private func deleteMockStubsRequest() async throws {
-		var deleteMockRequest = URLRequest(url: try mockURL().appending(path: "reset"))
-		deleteMockRequest.httpMethod = "POST"
-		let (_, deleteMockResponse) = try await URLSession(configuration: .default).data(for: deleteMockRequest)
-		let deleteMockHTTPResponse = try XCTUnwrap(deleteMockResponse as? HTTPURLResponse)
-		XCTAssertEqual(deleteMockHTTPResponse.statusCode, 200)
-	}
-
 	@discardableResult
 	func withMock<T>(
-		name mockName: String,
+		_ mockName: String,
 		action: () async throws -> T
 	) async throws -> T {
 		do {
@@ -52,5 +30,31 @@ extension XCTestCase {
 			try? await deleteMockStubsRequest()
 			throw error
 		}
+	}
+
+	//
+
+	private func mockURL() throws -> URL {
+		let url = try XCTUnwrap(Config.environment.baseURL.appending(path: "__admin/mappings"))
+		return url
+	}
+
+	private func createMockStubsRequest(data: Data) async throws {
+		var request = URLRequest(url: try mockURL())
+		request.httpMethod = "POST"
+		request.httpBody = data
+
+		let (_, response) = try await URLSession(configuration: .default).data(for: request)
+		let httpResponse = try XCTUnwrap(response as? HTTPURLResponse)
+		XCTAssertEqual(httpResponse.statusCode, 201)
+	}
+
+	private func deleteMockStubsRequest() async throws {
+		var request = URLRequest(url: try mockURL().appending(path: "reset"))
+		request.httpMethod = "POST"
+
+		let (_, response) = try await URLSession(configuration: .default).data(for: request)
+		let httpResponse = try XCTUnwrap(response as? HTTPURLResponse)
+		XCTAssertEqual(httpResponse.statusCode, 200)
 	}
 }

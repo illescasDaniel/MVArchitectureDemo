@@ -12,6 +12,7 @@ import Foundation
 // To modify debug config, see DebugConfig.swift
 final class Config {
 	static let httpClient: HTTPClient = HTTPClientImpl(urlSession: URLSession(configuration: .default))
+	static var isTest: Bool { false }
 	static var environment: ServerEnvironment {
 		return ServerEnvironment.production
 	}

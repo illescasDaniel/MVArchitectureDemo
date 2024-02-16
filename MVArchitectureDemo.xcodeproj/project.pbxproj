@@ -7,9 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		651A39EA2B7EB287001B3AB9 /* update_content_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 651A39E42B7EB287001B3AB9 /* update_content_success.json */; };
-		651A39EB2B7EB287001B3AB9 /* update_name_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 651A39E52B7EB287001B3AB9 /* update_name_success.json */; };
-		651A39EC2B7EB287001B3AB9 /* update_patch_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 651A39E62B7EB287001B3AB9 /* update_patch_success.json */; };
+		651A39EA2B7EB287001B3AB9 /* note_update_content_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 651A39E42B7EB287001B3AB9 /* note_update_content_success.json */; };
+		651A39EB2B7EB287001B3AB9 /* note_update_name_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 651A39E52B7EB287001B3AB9 /* note_update_name_success.json */; };
+		651A39EC2B7EB287001B3AB9 /* note_update_content_name_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 651A39E62B7EB287001B3AB9 /* note_update_content_name_success.json */; };
 		651A39ED2B7EB287001B3AB9 /* notes_failure_500.json in Resources */ = {isa = PBXBuildFile; fileRef = 651A39E72B7EB287001B3AB9 /* notes_failure_500.json */; };
 		651A39EE2B7EB287001B3AB9 /* notes_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 651A39E82B7EB287001B3AB9 /* notes_success.json */; };
 		651A39EF2B7EB287001B3AB9 /* isAvailable_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 651A39E92B7EB287001B3AB9 /* isAvailable_success.json */; };
@@ -73,9 +73,9 @@
 		651A39C42B7E7FED001B3AB9 /* update_patch.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = update_patch.json; sourceTree = "<group>"; };
 		651A39C52B7E7FED001B3AB9 /* notes.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notes.json; sourceTree = "<group>"; };
 		651A39C62B7E7FED001B3AB9 /* isAvailable.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = isAvailable.json; sourceTree = "<group>"; };
-		651A39E42B7EB287001B3AB9 /* update_content_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = update_content_success.json; sourceTree = "<group>"; };
-		651A39E52B7EB287001B3AB9 /* update_name_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = update_name_success.json; sourceTree = "<group>"; };
-		651A39E62B7EB287001B3AB9 /* update_patch_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = update_patch_success.json; sourceTree = "<group>"; };
+		651A39E42B7EB287001B3AB9 /* note_update_content_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = note_update_content_success.json; sourceTree = "<group>"; };
+		651A39E52B7EB287001B3AB9 /* note_update_name_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = note_update_name_success.json; sourceTree = "<group>"; };
+		651A39E62B7EB287001B3AB9 /* note_update_content_name_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = note_update_content_name_success.json; sourceTree = "<group>"; };
 		651A39E72B7EB287001B3AB9 /* notes_failure_500.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notes_failure_500.json; sourceTree = "<group>"; };
 		651A39E82B7EB287001B3AB9 /* notes_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = notes_success.json; sourceTree = "<group>"; };
 		651A39E92B7EB287001B3AB9 /* isAvailable_success.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = isAvailable_success.json; sourceTree = "<group>"; };
@@ -194,7 +194,8 @@
 		651A39E02B7EB287001B3AB9 /* tests */ = {
 			isa = PBXGroup;
 			children = (
-				651A39E72B7EB287001B3AB9 /* notes_failure_500.json */,
+				6555B24E2B7F5ACB00ED8A8C /* notes */,
+				651A39E32B7EB287001B3AB9 /* note */,
 				651A39E12B7EB287001B3AB9 /* __files */,
 				651A39E22B7EB287001B3AB9 /* mappings */,
 			);
@@ -211,8 +212,6 @@
 		651A39E22B7EB287001B3AB9 /* mappings */ = {
 			isa = PBXGroup;
 			children = (
-				651A39E32B7EB287001B3AB9 /* note */,
-				651A39E82B7EB287001B3AB9 /* notes_success.json */,
 				651A39E92B7EB287001B3AB9 /* isAvailable_success.json */,
 			);
 			path = mappings;
@@ -221,9 +220,9 @@
 		651A39E32B7EB287001B3AB9 /* note */ = {
 			isa = PBXGroup;
 			children = (
-				651A39E42B7EB287001B3AB9 /* update_content_success.json */,
-				651A39E52B7EB287001B3AB9 /* update_name_success.json */,
-				651A39E62B7EB287001B3AB9 /* update_patch_success.json */,
+				651A39E42B7EB287001B3AB9 /* note_update_content_success.json */,
+				651A39E52B7EB287001B3AB9 /* note_update_name_success.json */,
+				651A39E62B7EB287001B3AB9 /* note_update_content_name_success.json */,
 			);
 			path = note;
 			sourceTree = "<group>";
@@ -326,6 +325,15 @@
 				652305E22B5421A200107A1E /* app_network */,
 			);
 			path = network;
+			sourceTree = "<group>";
+		};
+		6555B24E2B7F5ACB00ED8A8C /* notes */ = {
+			isa = PBXGroup;
+			children = (
+				651A39E82B7EB287001B3AB9 /* notes_success.json */,
+				651A39E72B7EB287001B3AB9 /* notes_failure_500.json */,
+			);
+			path = notes;
 			sourceTree = "<group>";
 		};
 		6578B3892AD4840D0004F2F4 = {
@@ -598,11 +606,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				651A39EA2B7EB287001B3AB9 /* update_content_success.json in Resources */,
+				651A39EA2B7EB287001B3AB9 /* note_update_content_success.json in Resources */,
 				651A39EE2B7EB287001B3AB9 /* notes_success.json in Resources */,
-				651A39EB2B7EB287001B3AB9 /* update_name_success.json in Resources */,
+				651A39EB2B7EB287001B3AB9 /* note_update_name_success.json in Resources */,
 				651A39ED2B7EB287001B3AB9 /* notes_failure_500.json in Resources */,
-				651A39EC2B7EB287001B3AB9 /* update_patch_success.json in Resources */,
+				651A39EC2B7EB287001B3AB9 /* note_update_content_name_success.json in Resources */,
 				651A39EF2B7EB287001B3AB9 /* isAvailable_success.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

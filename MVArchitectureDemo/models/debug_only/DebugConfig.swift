@@ -16,8 +16,11 @@ final class Config {
 	// then we could get the current environment using UserDefaults
 	static var environment: ServerEnvironment = ServerEnvironment.localApp
 
+	static var isTest: Bool {
+		UserDefaults.standard.bool(forKey: "isTest")
+	}
+
 	static var isNetworkDelayEnabled: Bool {
-		let isTest = UserDefaults.standard.bool(forKey: "isTest")
 		if isTest {
 			return false
 		} else {
