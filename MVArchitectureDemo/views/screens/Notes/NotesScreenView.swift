@@ -8,15 +8,14 @@
 import SwiftUI
 
 struct NotesScreenView: View {
-
-	@State
-	private var notes: [Note] = []
-
 	var body: some View {
-		NavigationStack {
-			NotesListView(notes: notes)
-				.dataLoadingHandler(for: $notes, getData: Note.all)
-				.navigationTitle("Something")
+		ViewStateHandler { notes in
+			NavigationStack {
+				NotesListView(notes: notes.wrappedValue)
+					.navigationTitle("Something")
+			}
+		} loadDataAction: {
+			try await Note.all()
 		}
 	}
 }

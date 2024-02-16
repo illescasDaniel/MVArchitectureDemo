@@ -17,7 +17,7 @@ struct MVArchitectureDemoApp: App {
 	#if DEBUG
 	var body: some Scene {
 		WindowGroup {
-			// no need to open or render the app if we are testing...
+			// no need to render the app if we are running unit tests...
 			if !Config.isRunningUnitTests {
 				rootView
 			}

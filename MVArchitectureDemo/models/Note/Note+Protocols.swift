@@ -42,3 +42,9 @@ extension Note: Equatable {
 		return true
 	}
 }
+
+//extension Note: EmptyProtocol {
+//	var isEmpty: Bool {
+//		return name
+//	}
+//}
