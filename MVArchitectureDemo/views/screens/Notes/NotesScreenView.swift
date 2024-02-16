@@ -8,9 +8,6 @@
 import SwiftUI
 
 struct NotesScreenView: View {
-	
-	@State
-	private var viewState: ViewState = .idle
 
 	@State
 	private var notes: [Note] = []
@@ -18,9 +15,7 @@ struct NotesScreenView: View {
 	var body: some View {
 		NavigationStack {
 			NotesListView(notes: notes)
-				.dataLoading($viewState) {
-					(viewState, notes) = await ViewState.create(previous: notes, new: Note.all)
-				}
+				.dataLoadingHandler(for: $notes, getData: Note.all)
 				.navigationTitle("Something")
 		}
 	}

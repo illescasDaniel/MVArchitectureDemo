@@ -10,10 +10,15 @@ import SwiftUI
 struct NotesListView: View {
 
 	let notes: [Note]
-	@State var editingNote: Note?
-	@State var isPresentingEditingNoteAlert = false
-	@State var newName: String = ""
-	@State var newContent: String = ""
+	
+	@State
+	private var editingNote: Note?
+	@State
+	private var isPresentingEditingNoteAlert = false
+	@State
+	private var newName: String = ""
+	@State
+	private var newContent: String = ""
 
 	var body: some View {
 		List(notes) { note in
