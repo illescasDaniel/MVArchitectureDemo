@@ -10,23 +10,15 @@ import Foundation
 
 final class Config {
 
-	static var httpClient: DebugHTTPClient = DebugHTTPClient(urlSession: URLSession(configuration: .ephemeral))
+	static let httpClient: DebugHTTPClient = DebugHTTPClient(urlSession: URLSession(configuration: .ephemeral))
 
 	// Debug user could change environment in Settings app
-	// then we could get the current environment using UserDefaults
+	// then we could get the current environment using UserDefaults.
+	// Currently, the environment is different for unit tests.
 	static var environment: ServerEnvironment = ServerEnvironment.localApp
 
 	static var isTest: Bool {
 		UserDefaults.standard.bool(forKey: "isTest")
-	}
-
-	static var isNetworkDelayEnabled: Bool {
-		if isTest {
-			return false
-		} else {
-			// only change this if needed:
-			return true
-		}
 	}
 }
 #endif

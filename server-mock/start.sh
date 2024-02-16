@@ -1,4 +1,18 @@
-#!/bin/sh
+#!/bin/bash
 
-java -jar "WireMock_3.2.0.jar" --verbose --port 8080 --root-dir="../MVArchitectureDemo/Preview Content/mock_requests/app"
+# Get the absolute path of the current working directory
+current_dir="$(pwd)"
 
+# Open a new Terminal window and run the first script
+osascript <<EOF
+tell application "Terminal"
+    do script "cd \"$current_dir\"; ./start_app.sh"
+end tell
+EOF
+
+# Open a new Terminal window and run the second script
+osascript <<EOF
+tell application "Terminal"
+    do script "cd \"$current_dir\"; ./start_tests.sh"
+end tell
+EOF

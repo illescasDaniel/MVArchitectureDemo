@@ -25,7 +25,8 @@ struct NotesScreenView: View {
 
 #if DEBUG
 #Preview {
-	NotesScreenView()
+	Config.httpClient.removeMockData()
+	return NotesScreenView()
 }
 
 #Preview("error") {

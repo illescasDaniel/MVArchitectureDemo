@@ -13,6 +13,7 @@ final class DebugHTTPClient: HTTPClient {
 	static let anyPath: String = "*"
 	private var stubResponseForPath: [String: (Data, HTTPURLResponse)] = [:]
 	private var stubErrorForPath: [String: Error] = [:]
+	private var networkDelayIsSetUp = false
 	let urlSession: URLSession
 
 	init(urlSession: URLSession) {
@@ -20,8 +21,9 @@ final class DebugHTTPClient: HTTPClient {
 	}
 
 	func data(for httpRequest: HTTPURLRequest) async throws -> (Data, HTTPURLResponse) {
-		if Config.isNetworkDelayEnabled {
-			try? await Task.sleep(for: .milliseconds(600))
+		if !Config.isTest && !networkDelayIsSetUp {
+			try await setUpNetworkDelay()
+			networkDelayIsSetUp = true
 		}
 		let path = httpRequest.urlRequest.url?.path(percentEncoded: true) ?? String()
 
@@ -36,7 +38,7 @@ final class DebugHTTPClient: HTTPClient {
 		return (data, response as! HTTPURLResponse)
 	}
 
-	//
+	// MARK: Mock response
 
 	@discardableResult
 	func withMock<T>(
@@ -51,34 +53,24 @@ final class DebugHTTPClient: HTTPClient {
 		return try await block()
 	}
 
-	@discardableResult
-	func withMock<T>(
-		error: Error,
-		path: String = DebugHTTPClient.anyPath,
-		block: @Sendable () async throws -> T
-	) async throws -> T {
-		removeMockData()
-		setMock(error: error, path: path)
-		defer { removeMockData() }
-		return try await block()
-	}
-
-	//
-
 	func setMock(data: Data = Data(), response: HTTPURLResponse, path: String = DebugHTTPClient.anyPath) {
 		stubResponseForPath[path] = (data, response)
 		stubErrorForPath.removeValue(forKey: path)
 	}
 
-	// this is not for 404 or things like that, this is for when you want to simulate that the request task was cancelled or something like that!
-	func setMock(error: Error, path: String = DebugHTTPClient.anyPath) {
-		stubResponseForPath.removeValue(forKey: path)
-		stubErrorForPath[path] = error
-	}
-
 	func removeMockData() {
 		stubResponseForPath.removeAll()
 		stubErrorForPath.removeAll()
+	}
+
+	// MARK: Private
+
+	private func setUpNetworkDelay() async throws {
+		let body = #"{ "fixedDelay": 200 }"#
+		var request = URLRequest(url: Config.environment.baseURL.appending(path: "__admin/settings"))
+		request.httpMethod = "POST"
+		request.httpBody = Data(body.utf8)
+		_ = try await URLSession(configuration: .default).data(for: request)
 	}
 }
 #endif

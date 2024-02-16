@@ -9,18 +9,25 @@ import SwiftUI
 
 @main
 struct MVArchitectureDemoApp: App {
+
+	#if DEBUG
 	var body: some Scene {
 		WindowGroup {
-			#if DEBUG
 			// no need to open or render the app if we are testing...
-			if Config.isTest {
-				EmptyView()
-			} else {
-				NotesScreenView()
+			if !Config.isTest {
+				rootView
 			}
-			#else
-			NotesScreenView()
-			#endif
 		}
+	}
+	#else
+	var body: some Scene {
+		WindowGroup {
+			rootView
+		}
+	}
+	#endif
+
+	var rootView: some View {
+		NotesScreenView()
 	}
 }
