@@ -196,7 +196,7 @@
 		651A39E02B7EB287001B3AB9 /* tests */ = {
 			isa = PBXGroup;
 			children = (
-				6555B24E2B7F5ACB00ED8A8C /* notes */,
+				6555B2552B7F605000ED8A8C /* stubs */,
 				651A39E12B7EB287001B3AB9 /* __files */,
 				651A39E22B7EB287001B3AB9 /* mappings */,
 			);
@@ -345,6 +345,14 @@
 				6555B2512B7F5F2600ED8A8C /* note_update_content_name_failure_404.json */,
 			);
 			path = failure;
+			sourceTree = "<group>";
+		};
+		6555B2552B7F605000ED8A8C /* stubs */ = {
+			isa = PBXGroup;
+			children = (
+				6555B24E2B7F5ACB00ED8A8C /* notes */,
+			);
+			path = stubs;
 			sourceTree = "<group>";
 		};
 		6578B3892AD4840D0004F2F4 = {
