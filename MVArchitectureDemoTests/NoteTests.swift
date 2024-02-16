@@ -31,10 +31,11 @@ final class NoteTests: MVXCTestCase {
 	func test_GivenServerFailure_WhenFetchNotes_ThenThrowsError() async throws {
 		do {
 			try await withMock("notes_failure_500", action: Note.all)
-		} catch AppNetworkResponseError.unexpected(statusCode: 500) {
-			// ok
 		} catch {
-			XCTFail("Error: \(error). Description: \(error.localizedDescription)")
+			XCTAssertEqual(
+				error as? AppNetworkResponseError,
+				AppNetworkResponseError.unexpected(statusCode: 500)
+			)
 		}
 	}
 
@@ -63,10 +64,11 @@ final class NoteTests: MVXCTestCase {
 			note.name = "planta"
 			note.content = "bla bla bla"
 			try await withMock("note_update_content_name_failure_404", action: note.update)
-		} catch AppNetworkResponseError.unexpected(statusCode: 404) {
-			// OK
 		} catch {
-			XCTFail("Error: \(error). Description: \(error.localizedDescription)")
+			XCTAssertEqual(
+				error as? AppNetworkResponseError,
+				AppNetworkResponseError.unexpected(statusCode: 404)
+			)
 		}
 	}
 

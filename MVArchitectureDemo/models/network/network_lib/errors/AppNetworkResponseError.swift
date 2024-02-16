@@ -7,6 +7,6 @@
 
 import Foundation
 
-enum AppNetworkResponseError: Error {
+enum AppNetworkResponseError: Error, Equatable {
 	case unexpected(statusCode: Int)
 }
