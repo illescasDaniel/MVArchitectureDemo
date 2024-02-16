@@ -1,5 +1,4 @@
 {
-	"id": "815b5606-480c-47ee-85ca-01ac134f0434",
 	"request": {
 		"method": "GET",
 		"url": "/notes"

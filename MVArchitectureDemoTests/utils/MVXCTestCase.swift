@@ -1,15 +1,20 @@
 //
-//  XCTestCase+withMock.swift
+//  MVXCTestCase.swift
 //  MVArchitectureDemoTests
 //
-//  Created by Daniel Illescas Romero on 15/2/24.
+//  Created by Daniel Illescas Romero on 16/2/24.
 //
 
 import Foundation
 import XCTest
 @testable import MVArchitectureDemo
 
-extension XCTestCase {
+class MVXCTestCase: XCTestCase {
+	override class func setUp() {
+		super.setUp()
+		Config.environment = .localTests
+	}
+
 	@discardableResult
 	func withMock<T>(
 		_ mockName: String,
@@ -32,7 +37,7 @@ extension XCTestCase {
 		}
 	}
 
-	//
+	// MARK: Private
 
 	private func mockURL() throws -> URL {
 		let url = try XCTUnwrap(Config.environment.baseURL.appending(path: "__admin/mappings"))

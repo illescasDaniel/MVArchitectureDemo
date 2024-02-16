@@ -8,13 +8,8 @@
 import XCTest
 @testable import MVArchitectureDemo
 
-final class DelayDisabledTests: XCTestCase {
+final class DelayDisabledTests: MVXCTestCase {
 	
-	override class func setUp() {
-		super.setUp()
-		Config.environment = .localTests
-	}
-
 	func testIsDelayDisabled() async throws {
 		XCTAssertFalse(Config.isNetworkDelayEnabled)
 	}

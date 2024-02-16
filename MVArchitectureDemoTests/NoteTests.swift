@@ -8,7 +8,7 @@
 import XCTest
 @testable import MVArchitectureDemo
 
-final class NoteTests: XCTestCase {
+final class NoteTests: MVXCTestCase {
 
 	// For people unused to this naming:
 	// ----------------------------------
@@ -18,11 +18,6 @@ final class NoteTests: XCTestCase {
 	// When renaming your test function to adhere to this format, you'll want to clearly describe these three aspects.
 	// ---
 	// TIP: when unsure, ask your favorite LLM about naming the function
-
-	override class func setUp() {
-		super.setUp()
-		Config.environment = .localTests
-	}
 
 	func test_GivenServerHasData_WhenFetchNotes_ThenCorrectNotesMatch() async throws {
 		let notes = try await withMock("notes_success", action: Note.all)
@@ -54,7 +49,7 @@ final class NoteTests: XCTestCase {
 		let note = Note(id: "a", name: "b", content: "c")
 		note.name = "planta"
 		note.name = "bla bla bla"
-		try await note.update()
+		try await withMock("note_update_name_success", action: note.update)
 	}
 
 	func test_GivenValidNote_WhenIsNotChanged_ThenUpdateIsAlwaysSuccessful() async throws {
@@ -64,12 +59,10 @@ final class NoteTests: XCTestCase {
 
 	func test_GivenNonexistentID_WhenUpdate_ThenThrows404Error() async throws {
 		do {
-			try await Config.httpClient.withMock(response: .statusCode(404), path: "/notes/a") {
-				let note = Note(id: "a", name: "b", content: "c")
-				note.name = "planta"
-				note.content = "bla bla bla"
-				try await note.update()
-			}
+			let note = Note(id: "a", name: "b", content: "c")
+			note.name = "planta"
+			note.content = "bla bla bla"
+			try await withMock("note_update_content_name_failure_404", action: note.update)
 		} catch AppNetworkResponseError.unexpected(statusCode: 404) {
 			// OK
 		} catch {
