@@ -21,7 +21,7 @@ final class DebugHTTPClient: HTTPClient {
 	}
 
 	func data(for httpRequest: HTTPURLRequest) async throws -> (Data, HTTPURLResponse) {
-		if Config.isRunningWithoutTests && !networkDelayIsSetUp {
+		if !networkDelayIsSetUp {
 			try await setUpNetworkDelay()
 			networkDelayIsSetUp = true
 		}
@@ -66,7 +66,7 @@ final class DebugHTTPClient: HTTPClient {
 	// MARK: Private
 
 	private func setUpNetworkDelay() async throws {
-		let body = #"{ "fixedDelay": 200 }"#
+		let body = #"{ "fixedDelay": \#(Config.isRunningWithoutTests ? 200 : 0) }"#
 		var request = URLRequest(url: Config.environment.baseURL.appending(path: "__admin/settings"))
 		request.httpMethod = "POST"
 		request.httpBody = Data(body.utf8)
