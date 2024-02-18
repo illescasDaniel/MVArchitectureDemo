@@ -86,7 +86,9 @@ struct ViewStateHandler<Content: View, T: Equatable & EmptyProtocol>: View {
 								.monospaced()
 						} actions: {
 							Button("Retry") {
-								viewState = .loading
+								withAnimation {
+									viewState = .loading
+								}
 								Task {
 									await loadDataAction()
 								}
@@ -104,7 +106,9 @@ struct ViewStateHandler<Content: View, T: Equatable & EmptyProtocol>: View {
 							Label("Empty", systemImage: "tray.fill")
 						} actions: {
 							Button {
-								viewState = .loading
+								withAnimation {
+									viewState = .loading
+								}
 								Task {
 									await loadDataAction()
 								}
@@ -119,7 +123,9 @@ struct ViewStateHandler<Content: View, T: Equatable & EmptyProtocol>: View {
 				}
 			}
 			.task {
-				viewState = .loading
+				withAnimation {
+					viewState = .loading
+				}
 				await loadDataAction()
 			}
 	}
@@ -129,13 +135,19 @@ struct ViewStateHandler<Content: View, T: Equatable & EmptyProtocol>: View {
 			let newData = try await getData()
 			if newData.isEmpty {
 				data = .empty()
-				viewState = .empty
+				withAnimation {
+					viewState = .empty
+				}
 			} else {
 				data = newData
-				viewState = .success
+				withAnimation {
+					viewState = .success
+				}
 			}
 		} catch {
-			viewState = .error(error)
+			withAnimation {
+				viewState = .error(error)
+			}
 		}
 	}
 }
