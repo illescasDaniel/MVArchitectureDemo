@@ -9,11 +9,7 @@ import Foundation
 import XCTest
 @testable import MVArchitectureDemo
 
-class MVXCTestCase: XCTestCase {
-	override class func setUp() {
-		super.setUp()
-		Config.environment = .localTests
-	}
+extension XCTestCase {
 
 	@discardableResult
 	func withMock<T>(
@@ -40,7 +36,7 @@ class MVXCTestCase: XCTestCase {
 	// MARK: Private
 
 	private func mockURL() throws -> URL {
-		let url = try XCTUnwrap(Config.environment.baseURL.appending(path: "__admin/mappings"))
+		let url = try XCTUnwrap(DI.get(ServerEnvironment.self).baseURL.appending(path: "__admin/mappings"))
 		return url
 	}
 

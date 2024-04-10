@@ -8,7 +8,7 @@
 import XCTest
 @testable import MVArchitectureDemo
 
-final class NoteTests: MVXCTestCase {
+final class NoteTests: XCTestCase {
 
 	// For people unused to this naming:
 	// ----------------------------------

@@ -36,13 +36,13 @@ final class Note {
 			try await ServerAvailabilityManager.checkAvailability()
 
 			let request = try HTTPURLRequest(
-				url: Config.environment.baseURL
+				url: DI.get(ServerEnvironment.self).baseURL
 					.appending(path: "notes")
 					.appending(path: self.id),
 				httpMethod: .patch,
 				bodyDictionary: newChanges
 			)
-			let (_, response) = try await get(HTTPClient.self).data(for: request)
+			let (_, response) = try await DI.get(HTTPClient.self).data(for: request)
 			if response.statusCode != 204 {
 				throw AppNetworkResponseError.unexpected(statusCode: response.statusCode)
 			}
@@ -64,8 +64,8 @@ final class Note {
 	@Sendable
 	static func all() async throws -> [Note] {
 		try await ServerAvailabilityManager.checkAvailability()
-		let request = try HTTPURLRequest(url: Config.environment.baseURL.appending(path: "notes"))
-		let notes = try await get(HTTPClient.self).data(for: request, decoding: [Note].self)
+		let request = try HTTPURLRequest(url: DI.get(ServerEnvironment.self).baseURL.appending(path: "notes"))
+		let notes = try await DI.get(HTTPClient.self).data(for: request, decoding: [Note].self)
 		return notes
 	}
 }

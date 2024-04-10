@@ -7,11 +7,13 @@
 
 import SwiftUI
 
+let DI = DependencyInjectionFactory.get()
+
 @main
 struct MVArchitectureDemoApp: App {
 
 	init() {
-		DependencyInjection.registerDependencies()
+		DI.registerDependencies()
 	}
 
 	var rootView: some View {

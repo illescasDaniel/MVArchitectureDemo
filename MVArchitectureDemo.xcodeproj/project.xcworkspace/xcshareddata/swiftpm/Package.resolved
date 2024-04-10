@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "git@github.com:illescasDaniel/DIC.git",
       "state" : {
-        "revision" : "f3052414d75fbdd69aca581bd2550e90d91e89da",
-        "version" : "1.3.0"
+        "revision" : "183b7a5bbbd818bbc65d5bbdc097c51b0e10a230",
+        "version" : "1.3.1"
       }
     }
   ],

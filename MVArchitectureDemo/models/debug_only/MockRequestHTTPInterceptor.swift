@@ -61,7 +61,7 @@ final class MockRequestHTTPInterceptor: HTTPInterceptor {
 
 	private func setUpNetworkDelay() async throws {
 		let body = #"{ "fixedDelay": \#(Config.isRunningWithoutTests ? 200 : 0) }"#
-		var request = URLRequest(url: Config.environment.baseURL.appending(path: "__admin/settings"))
+		var request = URLRequest(url: DI.get(ServerEnvironment.self).baseURL.appending(path: "__admin/settings"))
 		request.httpMethod = "POST"
 		request.httpBody = Data(body.utf8)
 		_ = try await URLSession(configuration: .default).data(for: request)

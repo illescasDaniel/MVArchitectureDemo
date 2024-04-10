@@ -13,7 +13,7 @@ extension HTTPURLResponse {
 		self.init(url: url, statusCode: statusCode, httpVersion: nil, headerFields: nil)
 	}
 	static func statusCode(_ statusCode: Int) -> HTTPURLResponse {
-		return HTTPURLResponse(url: Config.environment.baseURL, statusCode: statusCode)!
+		return HTTPURLResponse(url: DI.get(ServerEnvironment.self).baseURL, statusCode: statusCode)!
 	}
 }
 #endif
