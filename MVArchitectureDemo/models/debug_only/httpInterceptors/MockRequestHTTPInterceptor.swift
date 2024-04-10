@@ -16,10 +16,6 @@ final class MockRequestHTTPInterceptor: HTTPInterceptor {
 	private var networkDelayIsSetUp = false
 
 	func data(for httpRequest: HTTPURLRequest, httpHandler: HTTPHandler) async throws -> (Data, HTTPURLResponse) {
-		if !networkDelayIsSetUp {
-			try await setUpNetworkDelay()
-			networkDelayIsSetUp = true
-		}
 		let path = httpRequest.urlRequest.url?.path(percentEncoded: true) ?? String()
 
 		if let (data, response) = stubResponseForPath[path] ?? stubResponseForPath[Self.anyPath] {
@@ -55,16 +51,6 @@ final class MockRequestHTTPInterceptor: HTTPInterceptor {
 	func removeMockData() {
 		stubResponseForPath.removeAll()
 		stubErrorForPath.removeAll()
-	}
-
-	// MARK: Private
-
-	private func setUpNetworkDelay() async throws {
-		let body = #"{ "fixedDelay": \#(Config.isRunningWithoutTests ? 200 : 0) }"#
-		var request = URLRequest(url: DI.get(ServerEnvironment.self).baseURL.appending(path: "__admin/settings"))
-		request.httpMethod = "POST"
-		request.httpBody = Data(body.utf8)
-		_ = try await URLSession(configuration: .default).data(for: request)
 	}
 }
 

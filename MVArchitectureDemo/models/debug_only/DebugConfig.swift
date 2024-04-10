@@ -11,6 +11,8 @@ import DIC
 
 final class Config {
 
+	static let networkDelayInMilliseconds: Int = 200
+
 	static var isRunningUnitTests: Bool {
 		UserDefaults.standard.bool(forKey: "isRunningUnitTests")
 	}
