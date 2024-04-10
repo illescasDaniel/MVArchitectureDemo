@@ -25,7 +25,6 @@ final class Note {
 		self.previousNoteDictionary = dictionary
 	}
 
-	@Sendable 
 	func update() async throws {
 		do {
 			let currentNoteDictionary = dictionary

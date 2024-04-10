@@ -10,7 +10,11 @@ import Foundation
 
 final class Config {
 
-	static let httpClient: DebugHTTPClient = DebugHTTPClient(urlSession: URLSession(configuration: .ephemeral))
+	static let mockInterceptor: MockRequestHTTPInterceptor = MockRequestHTTPInterceptor()
+	static let httpClient: HTTPClient = HTTPClientImpl(
+		urlSession: URLSession(configuration: .ephemeral),
+		interceptors: [Config.mockInterceptor, RequestLoggerHTTPInterceptor()]
+	)
 
 	// Debug user could change environment in Settings app
 	// then we could get the current environment using UserDefaults.
@@ -27,6 +31,10 @@ final class Config {
 
 	static var isRunningWithoutTests: Bool {
 		!isRunningUnitTests && !isRunningUITests
+	}
+
+	static var isSwiftUIPreviewRunning: Bool {
+		ProcessInfo.processInfo.environment["XCODE_RUNNING_FOR_PREVIEWS"] == "1"
 	}
 }
 #endif

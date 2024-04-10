@@ -6,9 +6,21 @@
 //
 
 import SwiftUI
-import OSLog
+import os
 
-// to do: if it is a preview, use print instead
+extension Logger {
+	static func current<T>(for classType: T.Type) -> Logger {
+		Logger(
+			subsystem: Bundle.main.bundleIdentifier ?? "App",
+			category: String(describing: classType)
+		)
+	}
+	func error(_ error: Error) {
+		var description: String = ""
+		dump(error, to: &description)
+		self.error("\(error.localizedDescription)\nError details:\n\(description)")
+	}
+}
 
 extension View {
 	var logger: Logger {
@@ -19,13 +31,6 @@ extension View {
 	}
 }
 
-extension Logger {
-	func error(_ error: Error) {
-		var description: String = ""
-		dump(error, to: &description)
-		self.error("\(error.localizedDescription)\nError details:\n\(description)")
-	}
-}
 
 extension Observable {
 	var logger: Logger {

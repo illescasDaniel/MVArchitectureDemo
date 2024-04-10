@@ -8,19 +8,14 @@
 #if DEBUG
 import Foundation
 
-final class DebugHTTPClient: HTTPClient {
+final class MockRequestHTTPInterceptor: HTTPInterceptor {
 
 	static let anyPath: String = "*"
 	private var stubResponseForPath: [String: (Data, HTTPURLResponse)] = [:]
 	private var stubErrorForPath: [String: Error] = [:]
 	private var networkDelayIsSetUp = false
-	let urlSession: URLSession
 
-	init(urlSession: URLSession) {
-		self.urlSession = urlSession
-	}
-
-	func data(for httpRequest: HTTPURLRequest) async throws -> (Data, HTTPURLResponse) {
+	func data(for httpRequest: HTTPURLRequest, httpHandler: HTTPHandler) async throws -> (Data, HTTPURLResponse) {
 		if !networkDelayIsSetUp {
 			try await setUpNetworkDelay()
 			networkDelayIsSetUp = true
@@ -34,8 +29,7 @@ final class DebugHTTPClient: HTTPClient {
 			throw error
 		}
 
-		let (data, response) = try await urlSession.data(for: httpRequest.urlRequest)
-		return (data, response as! HTTPURLResponse)
+		return try await httpHandler.proceed(httpRequest)
 	}
 
 	// MARK: Mock response
@@ -44,7 +38,7 @@ final class DebugHTTPClient: HTTPClient {
 	func withMock<T>(
 		data: Data = Data(),
 		response: HTTPURLResponse,
-		path: String = DebugHTTPClient.anyPath,
+		path: String = MockRequestHTTPInterceptor.anyPath,
 		block: @Sendable () async throws -> T
 	) async throws -> T {
 		removeMockData()
@@ -53,7 +47,7 @@ final class DebugHTTPClient: HTTPClient {
 		return try await block()
 	}
 
-	func setMock(data: Data = Data(), response: HTTPURLResponse, path: String = DebugHTTPClient.anyPath) {
+	func setMock(data: Data = Data(), response: HTTPURLResponse, path: String = MockRequestHTTPInterceptor.anyPath) {
 		stubResponseForPath[path] = (data, response)
 		stubErrorForPath.removeValue(forKey: path)
 	}
@@ -73,4 +67,5 @@ final class DebugHTTPClient: HTTPClient {
 		_ = try await URLSession(configuration: .default).data(for: request)
 	}
 }
+
 #endif
