@@ -12,7 +12,7 @@ class ServerAvailabilityManager {
 		var statusCode: Int = -1
 		do {
 			let request = try HTTPURLRequest(url: Config.environment.baseURL.appending(path: "isAvailable"))
-			let (_, response) = try await Config.httpClient.data(for: request)
+			let (_, response) = try await get(HTTPClient.self).data(for: request)
 			statusCode = response.statusCode
 		} catch {
 			throw AppServerAvailabilityError.failure(error)

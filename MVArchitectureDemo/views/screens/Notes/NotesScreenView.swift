@@ -22,22 +22,22 @@ struct NotesScreenView: View {
 
 #if DEBUG
 #Preview {
-	Config.mockInterceptor.removeMockData()
+	get(MockRequestHTTPInterceptor.self).removeMockData()
 	return NotesScreenView()
 }
 
 #Preview("error") {
-	Config.mockInterceptor.setMock(response: .statusCode(404), path: "/notes")
+	get(MockRequestHTTPInterceptor.self).setMock(response: .statusCode(404), path: "/notes")
 	return NotesScreenView()
 }
 
 #Preview("error-json") {
-	Config.mockInterceptor.setMock(data: Data(), response: .statusCode(200))
+	get(MockRequestHTTPInterceptor.self).setMock(data: Data(), response: .statusCode(200))
 	return NotesScreenView()
 }
 
 #Preview("empty") {
-	Config.mockInterceptor.setMock(
+	get(MockRequestHTTPInterceptor.self).setMock(
 		data: NSDataAsset(name: "empty_content", bundle: .main)!.data,
 		response: .statusCode(200)
 	)

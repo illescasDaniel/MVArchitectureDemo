@@ -6,12 +6,12 @@
 //
 
 import Foundation
+import DIC
 
 #if !DEBUG
 // DO NOT MODIFY.
 // To modify debug config, see DebugConfig.swift
 final class Config {
-	static let httpClient: HTTPClient = HTTPClientImpl(urlSession: URLSession(configuration: .default))
 	static let environment: ServerEnvironment = ServerEnvironment.production
 }
 #endif

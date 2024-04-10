@@ -7,14 +7,9 @@
 
 #if DEBUG
 import Foundation
+import DIC
 
 final class Config {
-
-	static let mockInterceptor: MockRequestHTTPInterceptor = MockRequestHTTPInterceptor()
-	static let httpClient: HTTPClient = HTTPClientImpl(
-		urlSession: URLSession(configuration: .ephemeral),
-		interceptors: [Config.mockInterceptor, RequestLoggerHTTPInterceptor()]
-	)
 
 	// Debug user could change environment in Settings app
 	// then we could get the current environment using UserDefaults.

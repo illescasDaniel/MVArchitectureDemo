@@ -26,9 +26,7 @@ final class HTTPClientImpl: HTTPClient {
 		for interceptor in interceptors {
 			let response = try await interceptor.data(for: httpRequest, httpHandler: handler)
 			lastResponse = response
-			handler = HTTPHandler { request in
-				return response
-			}
+			handler = HTTPHandler { _ in response }
 		}
 		
 		if let lastResponse {

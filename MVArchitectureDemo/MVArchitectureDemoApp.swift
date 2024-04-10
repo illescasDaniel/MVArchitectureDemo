@@ -10,6 +10,10 @@ import SwiftUI
 @main
 struct MVArchitectureDemoApp: App {
 
+	init() {
+		DependencyInjection.registerDependencies()
+	}
+
 	var rootView: some View {
 		NotesScreenView()
 	}

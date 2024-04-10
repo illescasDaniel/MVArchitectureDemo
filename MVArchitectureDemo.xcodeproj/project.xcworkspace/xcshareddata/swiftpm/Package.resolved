@@ -1,0 +1,15 @@
+{
+  "originHash" : "5513ec0eb277b9afe9d1e305d69d80c981a4a6905ed6309b34c787247263a4b1",
+  "pins" : [
+    {
+      "identity" : "dic",
+      "kind" : "remoteSourceControl",
+      "location" : "git@github.com:illescasDaniel/DIC.git",
+      "state" : {
+        "revision" : "f3052414d75fbdd69aca581bd2550e90d91e89da",
+        "version" : "1.3.0"
+      }
+    }
+  ],
+  "version" : 3
+}
