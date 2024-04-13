@@ -14,19 +14,16 @@ final class NetworkDelayHTTPInterceptor: HTTPInterceptor {
 
 	func data(for httpRequest: HTTPURLRequest, httpRequestChain: HTTPRequestChain) async throws -> (Data, HTTPURLResponse) {
 		if !networkDelayIsSetUp {
-			try await setUpNetworkDelay()
+			let url = DI.get(ServerEnvironment.self).baseURL / "__admin/settings"
+			let request = try HTTPURLRequest(
+				url: url,
+				httpMethod: .post,
+				bodyDictionary: ["fixedDelay": Config.networkDelayInMilliseconds]
+			)
+			_ = try await httpRequestChain.proceed(request)
 			networkDelayIsSetUp = true
 		}
 		return try await httpRequestChain.proceed(httpRequest)
-	}
-
-	private func setUpNetworkDelay() async throws {
-		let body = #"{ "fixedDelay": \#(Config.networkDelayInMilliseconds) }"#
-		let url = DI.get(ServerEnvironment.self).baseURL / "__admin/settings"
-		var request = URLRequest(url: url)
-		request.httpMethod = "POST"
-		request.httpBody = Data(body.utf8)
-		_ = try await URLSession(configuration: .default).data(for: request)
 	}
 }
 #endif
