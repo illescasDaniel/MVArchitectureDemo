@@ -9,15 +9,22 @@
 import Foundation
 import HTTIES
 
-final class MockHTTPClient: HTTPClient {
+final class MockHTTPClient: HTTPClient, HTTPInterceptorMixin {
 
 	static let anyPath: String = "*"
 	private var stubResponseForPath: [String: (Data, HTTPURLResponse)] = [:]
 	private var stubErrorForPath: [String: Error] = [:]
 	private let defaultClient = HTTPClientImpl(httpDataRequestHandler: URLSession(configuration: .ephemeral))
+	var requestInterceptors: [any HTTPRequestInterceptor]
+	var responseInterceptors: [any HTTPResponseInterceptor]
 
-	func sendRequest(_ httpURLRequest: HTTPURLRequest) async throws -> (Data, HTTPURLResponse) {
-		let path = httpURLRequest.urlRequest.url?.path(percentEncoded: true) ?? String()
+	init(requestInterceptors: [any HTTPRequestInterceptor] = [], responseInterceptors: [any HTTPResponseInterceptor] = []) {
+		self.requestInterceptors = requestInterceptors
+		self.responseInterceptors = responseInterceptors
+	}
+
+	func sendRequestWithoutInterceptors(_ urlRequest: URLRequest) async throws -> (Data, HTTPURLResponse) {
+		let path = urlRequest.url?.path(percentEncoded: true) ?? String()
 
 		if let (data, response) = stubResponseForPath[path] ?? stubResponseForPath[Self.anyPath] {
 			return (data, response)
@@ -26,7 +33,7 @@ final class MockHTTPClient: HTTPClient {
 			throw error
 		}
 		
-		return try await defaultClient.sendRequest(httpURLRequest)
+		return try await defaultClient.sendRequest(HTTPURLRequest(urlRequest: urlRequest))
 	}
 
 	// MARK: Mock response

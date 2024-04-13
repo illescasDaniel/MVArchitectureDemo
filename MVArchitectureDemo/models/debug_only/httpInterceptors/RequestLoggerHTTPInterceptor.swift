@@ -16,13 +16,14 @@ final class RequestLoggerHTTPInterceptor: HTTPResponseInterceptor {
 		let logger = Logger.current(for: Self.self)
 		if Config.isSwiftUIPreviewRunning {
 			print("""
-			----
-			- Request: \(request.url?.path(percentEncoded: false) ?? "nil")
-			  - Body parameters: \(request.httpBody.map { String(decoding: $0, as: UTF8.self) } ?? "nil")
-			- Response: \(response.statusCode)
-			  - Body content: \(String(decoding: data, as: UTF8.self))
-			----
+			+--------------------------------------------------------------------------------+
+			| - Request: \(request.url?.path(percentEncoded: false) ?? "nil")
+			|   - Body parameters: \(request.httpBody.map { String(decoding: $0, as: UTF8.self) } ?? "nil")
+			| - Response: \(response.statusCode)
+			|   - Body content: \(String(decoding: data, as: UTF8.self))
+			+--------------------------------------------------------------------------------+
 			""")
+
 		} else {
 			logger.info("""
 			- Request: \(request.url?.path(percentEncoded: false) ?? "nil")
