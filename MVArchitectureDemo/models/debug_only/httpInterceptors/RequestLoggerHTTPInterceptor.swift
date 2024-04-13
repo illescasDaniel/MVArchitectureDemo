@@ -36,5 +36,4 @@ final class RequestLoggerHTTPInterceptor: HTTPInterceptor {
 		return (data, response)
 	}
 }
-
 #endif

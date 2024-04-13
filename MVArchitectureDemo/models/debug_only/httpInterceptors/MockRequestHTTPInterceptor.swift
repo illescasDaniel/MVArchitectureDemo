@@ -13,7 +13,6 @@ final class MockRequestHTTPInterceptor: HTTPInterceptor {
 	static let anyPath: String = "*"
 	private var stubResponseForPath: [String: (Data, HTTPURLResponse)] = [:]
 	private var stubErrorForPath: [String: Error] = [:]
-	private var networkDelayIsSetUp = false
 
 	func data(for httpRequest: HTTPURLRequest, httpHandler: HTTPHandler) async throws -> (Data, HTTPURLResponse) {
 		let path = httpRequest.urlRequest.url?.path(percentEncoded: true) ?? String()
