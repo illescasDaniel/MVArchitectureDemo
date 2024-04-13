@@ -16,17 +16,7 @@ struct DebugSwiftUIPreviewsDependencyInjection: DependencyInjection {
 
 	func registerDependencies() {
 		diContainer.registerSingleton(ServerEnvironment.localApp)
-		diContainer.registerSingleton(
-			MockHTTPClient(
-//				httpDataRequestHandler: URLSession(configuration: .ephemeral),
-//				requestInterceptors: [
-//					NetworkDelayHTTPInterceptor(),
-//				],
-//				responseInterceptors: [
-//					RequestLoggerHTTPInterceptor(),
-//				]
-			)
-		)
+		diContainer.registerSingleton(MockHTTPClient())
 		diContainer.registerSingleton(
 			diContainer.load(MockHTTPClient.self),
 			as: HTTPClient.self

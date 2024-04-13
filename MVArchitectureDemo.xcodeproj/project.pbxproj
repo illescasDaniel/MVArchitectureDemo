@@ -155,15 +155,23 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		650CA6C72BC6E06E00C795B2 /* DependencyInjection */ = {
+		6507836D2BCAC8F100D0F6EF /* implementations */ = {
 			isa = PBXGroup;
 			children = (
-				650CA6C32BC6DC2300C795B2 /* DependencyInjection.swift */,
 				650CA6C82BC6E08A00C795B2 /* DebugDependencyInjection.swift */,
 				650CA6CA2BC6E09A00C795B2 /* DebugUnitTestsDependencyInjection.swift */,
 				650CA6CC2BC6E0A500C795B2 /* ProductionDependencyInjection.swift */,
-				650CA6D02BC6E1A900C795B2 /* DependencyInjectionFactory.swift */,
 				650783682BCAA96B00D0F6EF /* DebugSwiftUIPreviewsDependencyInjection.swift */,
+			);
+			path = implementations;
+			sourceTree = "<group>";
+		};
+		650CA6C72BC6E06E00C795B2 /* DependencyInjection */ = {
+			isa = PBXGroup;
+			children = (
+				6507836D2BCAC8F100D0F6EF /* implementations */,
+				650CA6C32BC6DC2300C795B2 /* DependencyInjection.swift */,
+				650CA6D02BC6E1A900C795B2 /* DependencyInjectionFactory.swift */,
 			);
 			path = DependencyInjection;
 			sourceTree = "<group>";
@@ -250,6 +258,7 @@
 			isa = PBXGroup;
 			children = (
 				656E9E552BC6E68D00FF3467 /* httpInterceptors */,
+				652305DB2B54182E00107A1E /* MockHTTPClient.swift */,
 				6565DE382AE0039E00E95FAE /* HTTPURLResponse+Extension.swift */,
 				652305E02B541F6800107A1E /* DebugConfig.swift */,
 			);
@@ -298,16 +307,6 @@
 			path = screens;
 			sourceTree = "<group>";
 		};
-		652305E22B5421A200107A1E /* app_network */ = {
-			isa = PBXGroup;
-			children = (
-				652305E32B5421AF00107A1E /* errors */,
-				6578B3C02AD4876D0004F2F4 /* ServerEnvironment.swift */,
-				652305D22B54065C00107A1E /* ServerAvailabilityManager.swift */,
-			);
-			path = app_network;
-			sourceTree = "<group>";
-		};
 		652305E32B5421AF00107A1E /* errors */ = {
 			isa = PBXGroup;
 			children = (
@@ -321,7 +320,9 @@
 		652305E82B54222400107A1E /* network */ = {
 			isa = PBXGroup;
 			children = (
-				652305E22B5421A200107A1E /* app_network */,
+				652305E32B5421AF00107A1E /* errors */,
+				6578B3C02AD4876D0004F2F4 /* ServerEnvironment.swift */,
+				652305D22B54065C00107A1E /* ServerAvailabilityManager.swift */,
 			);
 			path = network;
 			sourceTree = "<group>";
@@ -401,7 +402,6 @@
 		656E9E552BC6E68D00FF3467 /* httpInterceptors */ = {
 			isa = PBXGroup;
 			children = (
-				652305DB2B54182E00107A1E /* MockHTTPClient.swift */,
 				650CA6BC2BC6C91500C795B2 /* RequestLoggerHTTPInterceptor.swift */,
 				656E9E532BC6E67900FF3467 /* NetworkDelayHTTPInterceptor.swift */,
 			);
