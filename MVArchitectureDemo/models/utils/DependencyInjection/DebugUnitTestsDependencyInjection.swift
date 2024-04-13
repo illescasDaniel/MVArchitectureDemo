@@ -8,6 +8,7 @@
 #if DEBUG
 import Foundation
 import DIC
+import HTTIES
 
 struct DebugUnitTestsDependencyInjection: DependencyInjection {
 
@@ -18,7 +19,7 @@ struct DebugUnitTestsDependencyInjection: DependencyInjection {
 		diContainer.registerSingleton(MockRequestHTTPInterceptor())
 		diContainer.registerSingleton(
 			HTTPClientImpl(
-				urlSession: URLSession(configuration: .ephemeral),
+				httpDataRequestHandler: URLSession(configuration: .ephemeral),
 				interceptors: [
 					diContainer.load(MockRequestHTTPInterceptor.self),
 					RequestLoggerHTTPInterceptor()

@@ -6,6 +6,7 @@
 //
 
 import XCTest
+import HTTIES
 @testable import MVArchitectureDemo
 
 final class NoteTests: XCTestCase {

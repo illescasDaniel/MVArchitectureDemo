@@ -6,12 +6,13 @@
 //
 
 import Foundation
+import HTTIES
 
 class ServerAvailabilityManager {
 	static func checkAvailability() async throws {
 		var statusCode: Int = -1
 		do {
-			let request = try HTTPURLRequest(url: DI.get(ServerEnvironment.self).baseURL.appending(path: "isAvailable"))
+			let request = try HTTPURLRequest(url: DI.get(ServerEnvironment.self).baseURL / "isAvailable")
 			let (_, response) = try await DI.get(HTTPClient.self).data(for: request)
 			statusCode = response.statusCode
 		} catch {

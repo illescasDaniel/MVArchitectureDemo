@@ -7,6 +7,7 @@
 
 #if DEBUG
 import Foundation
+import HTTIES
 
 extension HTTPURLResponse {
 	convenience init?(url: URL, statusCode: Int) {

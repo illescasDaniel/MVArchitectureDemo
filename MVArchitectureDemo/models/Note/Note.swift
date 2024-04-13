@@ -7,6 +7,7 @@
 
 import Foundation
 import Observation
+import HTTIES
 
 @Observable
 final class Note {
@@ -36,9 +37,7 @@ final class Note {
 			try await ServerAvailabilityManager.checkAvailability()
 
 			let request = try HTTPURLRequest(
-				url: DI.get(ServerEnvironment.self).baseURL
-					.appending(path: "notes")
-					.appending(path: self.id),
+				url: DI.get(ServerEnvironment.self).baseURL / "notes" / self.id,
 				httpMethod: .patch,
 				bodyDictionary: newChanges
 			)
@@ -64,7 +63,7 @@ final class Note {
 	@Sendable
 	static func all() async throws -> [Note] {
 		try await ServerAvailabilityManager.checkAvailability()
-		let request = try HTTPURLRequest(url: DI.get(ServerEnvironment.self).baseURL.appending(path: "notes"))
+		let request = try HTTPURLRequest(url: DI.get(ServerEnvironment.self).baseURL / "notes")
 		let notes = try await DI.get(HTTPClient.self).data(for: request, decoding: [Note].self)
 		return notes
 	}

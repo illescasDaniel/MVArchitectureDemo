@@ -7,6 +7,7 @@
 
 #if DEBUG
 import Foundation
+import HTTIES
 
 final class MockRequestHTTPInterceptor: HTTPInterceptor {
 
@@ -14,7 +15,7 @@ final class MockRequestHTTPInterceptor: HTTPInterceptor {
 	private var stubResponseForPath: [String: (Data, HTTPURLResponse)] = [:]
 	private var stubErrorForPath: [String: Error] = [:]
 
-	func data(for httpRequest: HTTPURLRequest, httpHandler: HTTPHandler) async throws -> (Data, HTTPURLResponse) {
+	func data(for httpRequest: HTTPURLRequest, httpRequestChain: HTTPRequestChain) async throws -> (Data, HTTPURLResponse) {
 		let path = httpRequest.urlRequest.url?.path(percentEncoded: true) ?? String()
 
 		if let (data, response) = stubResponseForPath[path] ?? stubResponseForPath[Self.anyPath] {
@@ -24,7 +25,7 @@ final class MockRequestHTTPInterceptor: HTTPInterceptor {
 			throw error
 		}
 
-		return try await httpHandler.proceed(httpRequest)
+		return try await httpRequestChain.proceed(httpRequest)
 	}
 
 	// MARK: Mock response

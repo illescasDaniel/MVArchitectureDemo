@@ -7,14 +7,15 @@
 
 #if DEBUG
 import Foundation
+import HTTIES
 import OSLog
 
 final class RequestLoggerHTTPInterceptor: HTTPInterceptor {
 
-	func data(for httpRequest: HTTPURLRequest, httpHandler: HTTPHandler) async throws -> (Data, HTTPURLResponse) {
+	func data(for httpRequest: HTTPURLRequest, httpRequestChain: HTTPRequestChain) async throws -> (Data, HTTPURLResponse) {
 		let logger = Logger.current(for: Self.self)
 		let request = httpRequest.urlRequest
-		let (data, response) = try await httpHandler.proceed(httpRequest)
+		let (data, response) = try await httpRequestChain.proceed(httpRequest)
 
 		if Config.isSwiftUIPreviewRunning {
 			print("""

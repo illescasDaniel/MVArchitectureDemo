@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import HTTIES
 
 extension AppNetworkResponseError: LocalizedError {
-	var errorDescription: String? {
+	public var errorDescription: String? {
 		switch self {
 		case let .unexpected(statusCode):
 			return "Unexpected status code: \(statusCode)"

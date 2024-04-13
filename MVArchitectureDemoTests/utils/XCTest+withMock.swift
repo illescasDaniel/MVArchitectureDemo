@@ -7,6 +7,7 @@
 
 import Foundation
 import XCTest
+import HTTIES
 @testable import MVArchitectureDemo
 
 extension XCTestCase {
@@ -36,7 +37,7 @@ extension XCTestCase {
 	// MARK: Private
 
 	private func mockURL() throws -> URL {
-		let url = try XCTUnwrap(DI.get(ServerEnvironment.self).baseURL.appending(path: "__admin/mappings"))
+		let url = try XCTUnwrap(DI.get(ServerEnvironment.self).baseURL) / "__admin/mappings"
 		return url
 	}
 
@@ -51,7 +52,7 @@ extension XCTestCase {
 	}
 
 	private func deleteMockStubsRequest() async throws {
-		var request = URLRequest(url: try mockURL().appending(path: "reset"))
+		var request = URLRequest(url: try mockURL() / "reset")
 		request.httpMethod = "POST"
 
 		let (_, response) = try await URLSession(configuration: .default).data(for: request)

@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import HTTIES
 
 extension AppNetworkRequestError: LocalizedError {
-	var errorDescription: String? {
+	public var errorDescription: String? {
 		switch self {
 		case let .invalidScheme(scheme):
 			return "Invalid scheme: \(String(describing: scheme))"

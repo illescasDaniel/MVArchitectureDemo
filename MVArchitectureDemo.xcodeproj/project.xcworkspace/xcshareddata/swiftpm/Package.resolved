@@ -1,13 +1,22 @@
 {
-  "originHash" : "5513ec0eb277b9afe9d1e305d69d80c981a4a6905ed6309b34c787247263a4b1",
+  "originHash" : "8ff3efcf84c2565d943ddd49e5031f0e692b1c23d206edc18133c41603da6c05",
   "pins" : [
     {
       "identity" : "dic",
       "kind" : "remoteSourceControl",
-      "location" : "git@github.com:illescasDaniel/DIC.git",
+      "location" : "https://github.com/illescasDaniel/DIC",
       "state" : {
         "revision" : "183b7a5bbbd818bbc65d5bbdc097c51b0e10a230",
         "version" : "1.3.1"
+      }
+    },
+    {
+      "identity" : "htties",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/illescasDaniel/HTTIES",
+      "state" : {
+        "revision" : "b76f3684144fc1590257c81c72fa333499e2cb26",
+        "version" : "1.0.0"
       }
     }
   ],
