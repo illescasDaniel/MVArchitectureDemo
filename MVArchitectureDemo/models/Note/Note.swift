@@ -48,8 +48,6 @@ final class Note {
 
 			previousNoteDictionary = currentNoteDictionary
 		} catch {
-			logger.error(error)
-
 			// revert it back
 			if let previousNote = value(previousNoteDictionary) {
 				name = previousNote.name

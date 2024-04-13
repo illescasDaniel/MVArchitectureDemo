@@ -9,7 +9,7 @@
 import Foundation
 import HTTIES
 
-final class NetworkDelayHTTPInterceptor: HTTPRequestInterceptor {
+final class NetworkDelayHTTPInterceptor: HTTPInoutRequestInterceptor {
 	private var networkDelayIsSetUp = false
 
 	func intercept(request: inout URLRequest) async throws {

@@ -10,7 +10,7 @@ import Foundation
 import HTTIES
 import OSLog
 
-final class RequestLoggerHTTPInterceptor: HTTPResponseInterceptor {
+final class HTTPLoggerInterceptor: HTTPResponseInterceptor {
 
 	func intercept(data: Data, response: HTTPURLResponse, error: Error?, for request: URLRequest) -> (Data, HTTPURLResponse, Error?) {
 		let logger = Logger.current(for: Self.self)

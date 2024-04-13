@@ -23,7 +23,7 @@ struct DebugDependencyInjection: DependencyInjection {
 					NetworkDelayHTTPInterceptor(),
 				],
 				responseInterceptors: [
-					RequestLoggerHTTPInterceptor(),
+					HTTPLoggerInterceptor(),
 				]
 			),
 			as: HTTPClient.self

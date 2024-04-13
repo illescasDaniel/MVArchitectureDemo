@@ -22,7 +22,7 @@ struct DebugSwiftUIPreviewsDependencyInjection: DependencyInjection {
 					NetworkDelayHTTPInterceptor()
 				],
 				responseInterceptors: [
-					RequestLoggerHTTPInterceptor()
+					HTTPLoggerInterceptor()
 				]
 			)
 		)
