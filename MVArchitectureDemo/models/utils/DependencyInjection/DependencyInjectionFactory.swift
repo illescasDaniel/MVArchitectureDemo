@@ -12,6 +12,8 @@ struct DependencyInjectionFactory {
 		#if DEBUG
 		if Config.isRunningUnitTests {
 			return DebugUnitTestsDependencyInjection()
+		} else if Config.isSwiftUIPreviewRunning {
+			return DebugSwiftUIPreviewsDependencyInjection()
 		} else {
 			return DebugDependencyInjection()
 		}
