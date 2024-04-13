@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		6507835E2BCA941B00D0F6EF /* HTTIES in Frameworks */ = {isa = PBXBuildFile; productRef = 6507835D2BCA941B00D0F6EF /* HTTIES */; };
 		650783612BCA943400D0F6EF /* DIC in Frameworks */ = {isa = PBXBuildFile; productRef = 650783602BCA943400D0F6EF /* DIC */; };
+		650783672BCAA70200D0F6EF /* HTTIES in Frameworks */ = {isa = PBXBuildFile; productRef = 650783662BCAA70200D0F6EF /* HTTIES */; };
+		650783692BCAA96B00D0F6EF /* DebugSwiftUIPreviewsDependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650783682BCAA96B00D0F6EF /* DebugSwiftUIPreviewsDependencyInjection.swift */; };
+		6507836C2BCAC5EA00D0F6EF /* HTTIES in Frameworks */ = {isa = PBXBuildFile; productRef = 6507836B2BCAC5EA00D0F6EF /* HTTIES */; };
 		650CA6BD2BC6C91500C795B2 /* RequestLoggerHTTPInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650CA6BC2BC6C91500C795B2 /* RequestLoggerHTTPInterceptor.swift */; };
 		650CA6C42BC6DC2300C795B2 /* DependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650CA6C32BC6DC2300C795B2 /* DependencyInjection.swift */; };
 		650CA6C92BC6E08A00C795B2 /* DebugDependencyInjection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 650CA6C82BC6E08A00C795B2 /* DebugDependencyInjection.swift */; };
@@ -24,7 +26,7 @@
 		652305CA2B53F37C00107A1E /* ViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305C92B53F37C00107A1E /* ViewState.swift */; };
 		652305D32B54065C00107A1E /* ServerAvailabilityManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305D22B54065C00107A1E /* ServerAvailabilityManager.swift */; };
 		652305D72B54084000107A1E /* AppServerAvailabilityError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305D62B54084000107A1E /* AppServerAvailabilityError.swift */; };
-		652305DC2B54182E00107A1E /* MockRequestHTTPInterceptor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305DB2B54182E00107A1E /* MockRequestHTTPInterceptor.swift */; };
+		652305DC2B54182E00107A1E /* MockHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305DB2B54182E00107A1E /* MockHTTPClient.swift */; };
 		652305E12B541F6800107A1E /* DebugConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305E02B541F6800107A1E /* DebugConfig.swift */; };
 		652305E52B5421C300107A1E /* AppNetworkResponseError+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305E42B5421C300107A1E /* AppNetworkResponseError+LocalizedError.swift */; };
 		652305E72B5421EE00107A1E /* AppNetworkRequestError+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305E62B5421EE00107A1E /* AppNetworkRequestError+LocalizedError.swift */; };
@@ -69,6 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		650783682BCAA96B00D0F6EF /* DebugSwiftUIPreviewsDependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugSwiftUIPreviewsDependencyInjection.swift; sourceTree = "<group>"; };
 		650CA6BC2BC6C91500C795B2 /* RequestLoggerHTTPInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RequestLoggerHTTPInterceptor.swift; sourceTree = "<group>"; };
 		650CA6C32BC6DC2300C795B2 /* DependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DependencyInjection.swift; sourceTree = "<group>"; };
 		650CA6C82BC6E08A00C795B2 /* DebugDependencyInjection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugDependencyInjection.swift; sourceTree = "<group>"; };
@@ -91,7 +94,7 @@
 		652305CE2B53FBEA00107A1E /* Config.xcconfig.sample.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig.sample.xcconfig; sourceTree = "<group>"; };
 		652305D22B54065C00107A1E /* ServerAvailabilityManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerAvailabilityManager.swift; sourceTree = "<group>"; };
 		652305D62B54084000107A1E /* AppServerAvailabilityError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServerAvailabilityError.swift; sourceTree = "<group>"; };
-		652305DB2B54182E00107A1E /* MockRequestHTTPInterceptor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequestHTTPInterceptor.swift; sourceTree = "<group>"; };
+		652305DB2B54182E00107A1E /* MockHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockHTTPClient.swift; sourceTree = "<group>"; };
 		652305E02B541F6800107A1E /* DebugConfig.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugConfig.swift; sourceTree = "<group>"; };
 		652305E42B5421C300107A1E /* AppNetworkResponseError+LocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppNetworkResponseError+LocalizedError.swift"; sourceTree = "<group>"; };
 		652305E62B5421EE00107A1E /* AppNetworkRequestError+LocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppNetworkRequestError+LocalizedError.swift"; sourceTree = "<group>"; };
@@ -129,8 +132,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6507835E2BCA941B00D0F6EF /* HTTIES in Frameworks */,
+				6507836C2BCAC5EA00D0F6EF /* HTTIES in Frameworks */,
 				650783612BCA943400D0F6EF /* DIC in Frameworks */,
+				650783672BCAA70200D0F6EF /* HTTIES in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -159,6 +163,7 @@
 				650CA6CA2BC6E09A00C795B2 /* DebugUnitTestsDependencyInjection.swift */,
 				650CA6CC2BC6E0A500C795B2 /* ProductionDependencyInjection.swift */,
 				650CA6D02BC6E1A900C795B2 /* DependencyInjectionFactory.swift */,
+				650783682BCAA96B00D0F6EF /* DebugSwiftUIPreviewsDependencyInjection.swift */,
 			);
 			path = DependencyInjection;
 			sourceTree = "<group>";
@@ -396,7 +401,7 @@
 		656E9E552BC6E68D00FF3467 /* httpInterceptors */ = {
 			isa = PBXGroup;
 			children = (
-				652305DB2B54182E00107A1E /* MockRequestHTTPInterceptor.swift */,
+				652305DB2B54182E00107A1E /* MockHTTPClient.swift */,
 				650CA6BC2BC6C91500C795B2 /* RequestLoggerHTTPInterceptor.swift */,
 				656E9E532BC6E67900FF3467 /* NetworkDelayHTTPInterceptor.swift */,
 			);
@@ -547,8 +552,9 @@
 			);
 			name = MVArchitectureDemo;
 			packageProductDependencies = (
-				6507835D2BCA941B00D0F6EF /* HTTIES */,
 				650783602BCA943400D0F6EF /* DIC */,
+				650783662BCAA70200D0F6EF /* HTTIES */,
+				6507836B2BCAC5EA00D0F6EF /* HTTIES */,
 			);
 			productName = MVArchitectureDemo;
 			productReference = 6578B3922AD4840D0004F2F4 /* MVArchitectureDemo.app */;
@@ -623,8 +629,8 @@
 			);
 			mainGroup = 6578B3892AD4840D0004F2F4;
 			packageReferences = (
-				6507835C2BCA941B00D0F6EF /* XCRemoteSwiftPackageReference "HTTIES" */,
 				6507835F2BCA943400D0F6EF /* XCRemoteSwiftPackageReference "DIC" */,
+				6507836A2BCAC5EA00D0F6EF /* XCRemoteSwiftPackageReference "HTTIES" */,
 			);
 			productRefGroup = 6578B3932AD4840D0004F2F4 /* Products */;
 			projectDirPath = "";
@@ -683,11 +689,12 @@
 				650CA6C92BC6E08A00C795B2 /* DebugDependencyInjection.swift in Sources */,
 				650CA6D12BC6E1A900C795B2 /* DependencyInjectionFactory.swift in Sources */,
 				652305D32B54065C00107A1E /* ServerAvailabilityManager.swift in Sources */,
+				650783692BCAA96B00D0F6EF /* DebugSwiftUIPreviewsDependencyInjection.swift in Sources */,
 				6578B3982AD4840D0004F2F4 /* NotesScreenView.swift in Sources */,
 				652305E12B541F6800107A1E /* DebugConfig.swift in Sources */,
 				6565DE392AE0039E00E95FAE /* HTTPURLResponse+Extension.swift in Sources */,
 				650CA6C42BC6DC2300C795B2 /* DependencyInjection.swift in Sources */,
-				652305DC2B54182E00107A1E /* MockRequestHTTPInterceptor.swift in Sources */,
+				652305DC2B54182E00107A1E /* MockHTTPClient.swift in Sources */,
 				652305EA2B5422C700107A1E /* Note+Protocols.swift in Sources */,
 				652305E72B5421EE00107A1E /* AppNetworkRequestError+LocalizedError.swift in Sources */,
 				656E9E542BC6E67900FF3467 /* NetworkDelayHTTPInterceptor.swift in Sources */,
@@ -1073,14 +1080,6 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		6507835C2BCA941B00D0F6EF /* XCRemoteSwiftPackageReference "HTTIES" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/illescasDaniel/HTTIES";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.0.0;
-			};
-		};
 		6507835F2BCA943400D0F6EF /* XCRemoteSwiftPackageReference "DIC" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/illescasDaniel/DIC";
@@ -1089,18 +1088,30 @@
 				minimumVersion = 1.3.1;
 			};
 		};
+		6507836A2BCAC5EA00D0F6EF /* XCRemoteSwiftPackageReference "HTTIES" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/illescasDaniel/HTTIES";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		6507835D2BCA941B00D0F6EF /* HTTIES */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 6507835C2BCA941B00D0F6EF /* XCRemoteSwiftPackageReference "HTTIES" */;
-			productName = HTTIES;
-		};
 		650783602BCA943400D0F6EF /* DIC */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 6507835F2BCA943400D0F6EF /* XCRemoteSwiftPackageReference "DIC" */;
 			productName = DIC;
+		};
+		650783662BCAA70200D0F6EF /* HTTIES */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = HTTIES;
+		};
+		6507836B2BCAC5EA00D0F6EF /* HTTIES */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6507836A2BCAC5EA00D0F6EF /* XCRemoteSwiftPackageReference "HTTIES" */;
+			productName = HTTIES;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

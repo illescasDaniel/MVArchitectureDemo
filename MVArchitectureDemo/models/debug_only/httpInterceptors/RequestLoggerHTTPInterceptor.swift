@@ -10,13 +10,10 @@ import Foundation
 import HTTIES
 import OSLog
 
-final class RequestLoggerHTTPInterceptor: HTTPInterceptor {
+final class RequestLoggerHTTPInterceptor: HTTPResponseInterceptor {
 
-	func data(for httpRequest: HTTPURLRequest, httpRequestChain: HTTPRequestChain) async throws -> (Data, HTTPURLResponse) {
+	func intercept(data: Data, response: HTTPURLResponse, error: Error?, for request: URLRequest) -> (Data, HTTPURLResponse, Error?) {
 		let logger = Logger.current(for: Self.self)
-		let request = httpRequest.urlRequest
-		let (data, response) = try await httpRequestChain.proceed(httpRequest)
-
 		if Config.isSwiftUIPreviewRunning {
 			print("""
 			----
@@ -34,7 +31,7 @@ final class RequestLoggerHTTPInterceptor: HTTPInterceptor {
 			  - Body content: \(String(decoding: data, as: UTF8.self))
 			""")
 		}
-		return (data, response)
+		return (data, response, error)
 	}
 }
 #endif

@@ -8,6 +8,7 @@
 #if !DEBUG
 import Foundation
 import DIC
+import HTTIES
 
 struct ProductionDependencyInjection: DependencyInjection {
 
@@ -16,7 +17,7 @@ struct ProductionDependencyInjection: DependencyInjection {
 	func registerDependencies() {
 		diContainer.registerSingleton(ServerEnvironment.production)
 		diContainer.registerSingleton(
-			HTTPClientImpl(urlSession: URLSession(configuration: .default)),
+			HTTPClientImpl(httpDataRequestHandler: URLSession(configuration: .default)),
 			as: HTTPClient.self
 		)
 	}

@@ -9,14 +9,15 @@
 import Foundation
 import HTTIES
 
-final class MockRequestHTTPInterceptor: HTTPInterceptor {
+final class MockHTTPClient: HTTPClient {
 
 	static let anyPath: String = "*"
 	private var stubResponseForPath: [String: (Data, HTTPURLResponse)] = [:]
 	private var stubErrorForPath: [String: Error] = [:]
+	private let defaultClient = HTTPClientImpl(httpDataRequestHandler: URLSession(configuration: .ephemeral))
 
-	func data(for httpRequest: HTTPURLRequest, httpRequestChain: HTTPRequestChain) async throws -> (Data, HTTPURLResponse) {
-		let path = httpRequest.urlRequest.url?.path(percentEncoded: true) ?? String()
+	func sendRequest(_ httpURLRequest: HTTPURLRequest) async throws -> (Data, HTTPURLResponse) {
+		let path = httpURLRequest.urlRequest.url?.path(percentEncoded: true) ?? String()
 
 		if let (data, response) = stubResponseForPath[path] ?? stubResponseForPath[Self.anyPath] {
 			return (data, response)
@@ -24,8 +25,8 @@ final class MockRequestHTTPInterceptor: HTTPInterceptor {
 		if let error = stubErrorForPath[path] ?? stubErrorForPath[Self.anyPath] {
 			throw error
 		}
-
-		return try await httpRequestChain.proceed(httpRequest)
+		
+		return try await defaultClient.sendRequest(httpURLRequest)
 	}
 
 	// MARK: Mock response
@@ -34,7 +35,7 @@ final class MockRequestHTTPInterceptor: HTTPInterceptor {
 	func withMock<T>(
 		data: Data = Data(),
 		response: HTTPURLResponse,
-		path: String = MockRequestHTTPInterceptor.anyPath,
+		path: String = MockHTTPClient.anyPath,
 		block: @Sendable () async throws -> T
 	) async throws -> T {
 		removeMockData()
@@ -43,7 +44,7 @@ final class MockRequestHTTPInterceptor: HTTPInterceptor {
 		return try await block()
 	}
 
-	func setMock(data: Data = Data(), response: HTTPURLResponse, path: String = MockRequestHTTPInterceptor.anyPath) {
+	func setMock(data: Data = Data(), response: HTTPURLResponse, path: String = MockHTTPClient.anyPath) {
 		stubResponseForPath[path] = (data, response)
 		stubErrorForPath.removeValue(forKey: path)
 	}

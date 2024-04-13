@@ -9,21 +9,24 @@
 import Foundation
 import HTTIES
 
-final class NetworkDelayHTTPInterceptor: HTTPInterceptor {
+final class NetworkDelayHTTPInterceptor: HTTPRequestInterceptor {
 	private var networkDelayIsSetUp = false
 
-	func data(for httpRequest: HTTPURLRequest, httpRequestChain: HTTPRequestChain) async throws -> (Data, HTTPURLResponse) {
+	func intercept(request: inout URLRequest) async throws {
 		if !networkDelayIsSetUp {
-			let url = DI.get(ServerEnvironment.self).baseURL / "__admin/settings"
-			let request = try HTTPURLRequest(
-				url: url,
-				httpMethod: .post,
-				bodyDictionary: ["fixedDelay": Config.networkDelayInMilliseconds]
-			)
-			_ = try await httpRequestChain.proceed(request)
+			try await setUpNetworkDelay()
 			networkDelayIsSetUp = true
 		}
-		return try await httpRequestChain.proceed(httpRequest)
+	}
+
+	private func setUpNetworkDelay() async throws {
+		let url = DI.get(ServerEnvironment.self).baseURL / "__admin/settings"
+		let request = try HTTPURLRequest(
+			url: url,
+			httpMethod: .post,
+			bodyDictionary: ["fixedDelay": Config.networkDelayInMilliseconds]
+		)
+		_ = try await URLSession(configuration: .default).data(for: request.urlRequest)
 	}
 }
 #endif

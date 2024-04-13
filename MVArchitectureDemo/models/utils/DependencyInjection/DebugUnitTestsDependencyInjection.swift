@@ -16,15 +16,8 @@ struct DebugUnitTestsDependencyInjection: DependencyInjection {
 
 	func registerDependencies() {
 		diContainer.registerSingleton(ServerEnvironment.localTests)
-		diContainer.registerSingleton(MockRequestHTTPInterceptor())
 		diContainer.registerSingleton(
-			HTTPClientImpl(
-				httpDataRequestHandler: URLSession(configuration: .ephemeral),
-				interceptors: [
-					diContainer.load(MockRequestHTTPInterceptor.self),
-					RequestLoggerHTTPInterceptor()
-				]
-			),
+			HTTPClientImpl(httpDataRequestHandler: URLSession(configuration: .ephemeral)),
 			as: HTTPClient.self
 		)
 	}

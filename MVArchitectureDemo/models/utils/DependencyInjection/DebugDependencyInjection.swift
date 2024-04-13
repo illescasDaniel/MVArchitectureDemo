@@ -19,9 +19,11 @@ struct DebugDependencyInjection: DependencyInjection {
 		diContainer.registerSingleton(
 			HTTPClientImpl(
 				httpDataRequestHandler: URLSession(configuration: .ephemeral),
-				interceptors: [
+				requestInterceptors: [
 					NetworkDelayHTTPInterceptor(),
-					RequestLoggerHTTPInterceptor()
+				],
+				responseInterceptors: [
+					RequestLoggerHTTPInterceptor(),
 				]
 			),
 			as: HTTPClient.self

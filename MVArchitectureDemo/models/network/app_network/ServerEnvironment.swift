@@ -17,11 +17,11 @@ enum ServerEnvironment {
 		switch self {
 		case .production:
 			// TO DO: change url
-			return URL(string: "http://localhost:8082")!
+			return URL(string: "http://myProductionURLThatDoesntExistYet")!
 		case .localApp:
-			return URL(string: "http://localhost:8082")!
+			return URL(string: "http://127.0.0.1:8082")!
 		case .localTests:
-			return URL(string: "http://localhost:8081")!
+			return URL(string: "http://127.0.0.1:8081")!
 		}
 	}
 }
