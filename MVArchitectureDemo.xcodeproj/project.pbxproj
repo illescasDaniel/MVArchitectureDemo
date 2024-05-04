@@ -51,6 +51,7 @@
 		6578B3CA2AD48A050004F2F4 /* Note.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6578B3C92AD48A050004F2F4 /* Note.swift */; };
 		6578B3D02AD49D180004F2F4 /* NotesListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6578B3CF2AD49D180004F2F4 /* NotesListView.swift */; };
 		65AC83D42AD59B0B0045F183 /* Logger+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65AC83D32AD59B0B0045F183 /* Logger+Utils.swift */; };
+		65F124382BE67B9C0010E3FF /* asserts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65F124372BE67B9C0010E3FF /* asserts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -125,6 +126,7 @@
 		6578B3CF2AD49D180004F2F4 /* NotesListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotesListView.swift; sourceTree = "<group>"; };
 		65AC83C62AD5388E0045F183 /* MVArchitectureDemo.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MVArchitectureDemo.xctestplan; sourceTree = "<group>"; };
 		65AC83D32AD59B0B0045F183 /* Logger+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Logger+Utils.swift"; sourceTree = "<group>"; };
+		65F124372BE67B9C0010E3FF /* asserts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = asserts.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -250,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				6555B2532B7F5FC000ED8A8C /* XCTest+withMock.swift */,
+				65F124372BE67B9C0010E3FF /* asserts.swift */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -716,6 +719,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6578B3A82AD4840E0004F2F4 /* NoteTests.swift in Sources */,
+				65F124382BE67B9C0010E3FF /* asserts.swift in Sources */,
 				6555B2542B7F5FC000ED8A8C /* XCTest+withMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

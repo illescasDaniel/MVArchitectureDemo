@@ -18,18 +18,23 @@ extension XCTestCase {
 		action: () async throws -> T
 	) async throws -> T {
 		do {
-			let mockFile = try XCTUnwrap(Bundle(for: Self.self).url(forResource: mockName, withExtension: "json")?.path(percentEncoded: false))
-			let data = try XCTUnwrap(FileManager.default.contents(atPath: mockFile))
+			let mockURL = try self.mockURL()
+			do {
+				let mockFile = try XCTUnwrap(Bundle(for: Self.self).url(forResource: mockName, withExtension: "json")?.path(percentEncoded: false))
+				let data = try XCTUnwrap(FileManager.default.contents(atPath: mockFile))
 
-			try await createMockStubsRequest(data: data)
+				try await createMockStubsRequest(mockURL: mockURL, data: data)
 
-			let result = try await action()
+				let result = try await action()
 
-			try? await deleteMockStubsRequest()
+				try? await deleteMockStubsRequest(mockURL: mockURL)
 
-			return result
+				return result
+			} catch {
+				try? await deleteMockStubsRequest(mockURL: mockURL)
+				throw error
+			}
 		} catch {
-			try? await deleteMockStubsRequest()
 			throw error
 		}
 	}
@@ -41,8 +46,8 @@ extension XCTestCase {
 		return url
 	}
 
-	private func createMockStubsRequest(data: Data) async throws {
-		var request = URLRequest(url: try mockURL())
+	private func createMockStubsRequest(mockURL: URL, data: Data) async throws {
+		var request = URLRequest(url: mockURL)
 		request.httpMethod = "POST"
 		request.httpBody = data
 
@@ -51,8 +56,8 @@ extension XCTestCase {
 		XCTAssertEqual(httpResponse.statusCode, 201)
 	}
 
-	private func deleteMockStubsRequest() async throws {
-		var request = URLRequest(url: try mockURL() / "reset")
+	private func deleteMockStubsRequest(mockURL: URL) async throws {
+		var request = URLRequest(url: mockURL / "reset")
 		request.httpMethod = "POST"
 
 		let (_, response) = try await URLSession(configuration: .default).data(for: request)

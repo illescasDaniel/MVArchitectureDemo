@@ -30,14 +30,9 @@ final class NoteTests: XCTestCase {
 	}
 
 	func test_GivenServerFailure_WhenFetchNotes_ThenThrowsError() async throws {
-		do {
+		await XCTAssertThrowsAsyncErrorEqual({
 			try await withMock("notes_failure_500", action: Note.all)
-		} catch {
-			XCTAssertEqual(
-				error as? AppNetworkResponseError,
-				AppNetworkResponseError.unexpected(statusCode: 500)
-			)
-		}
+		}, error: AppNetworkResponseError.unexpected(statusCode: 500))
 	}
 
 	func test_GivenValidNote_WhenUpdateNoteNameAndContent_ThenUpdateIsSuccessful() async throws {
@@ -60,17 +55,12 @@ final class NoteTests: XCTestCase {
 	}
 
 	func test_GivenNonexistentID_WhenUpdate_ThenThrows404Error() async throws {
-		do {
+		await XCTAssertThrowsAsyncErrorEqual({
 			let note = Note(id: "a", name: "b", content: "c")
 			note.name = "planta"
 			note.content = "bla bla bla"
 			try await withMock("note_update_content_name_failure_404", action: note.update)
-		} catch {
-			XCTAssertEqual(
-				error as? AppNetworkResponseError,
-				AppNetworkResponseError.unexpected(statusCode: 404)
-			)
-		}
+		}, error: AppNetworkResponseError.unexpected(statusCode: 404))
 	}
 
 	func test_GivenSomeValidNotes_WhenComparingThem_ThenComparisonMatches() {
