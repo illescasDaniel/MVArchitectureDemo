@@ -24,7 +24,7 @@ final class NoteTests: XCTestCase {
 		let notes = try await withMock("notes_success", action: Note.all)
 		XCTAssertEqual(
 			notes,
-			[.init(id: "1", name: "Note1", content: "some content here"),
+			[.init(id: "1", name: "Note1", content: "some content here!"),
 			 .init(id: "2", name: "Note 2", content: "some other here")]
 		)
 	}

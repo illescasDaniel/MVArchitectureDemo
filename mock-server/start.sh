@@ -6,13 +6,13 @@ current_dir="$(pwd)"
 # Open a new Terminal window and run the first script
 osascript <<EOF
 tell application "Terminal"
-    do script "cd \"$current_dir\"; ./start_app.sh"
+    do script "cd \"$current_dir\"; ./_internal/start_app.sh"
 end tell
 EOF
 
 # Open a new Terminal window and run the second script
 osascript <<EOF
 tell application "Terminal"
-    do script "cd \"$current_dir\"; ./start_tests.sh"
+    do script "cd \"$current_dir\"; ./_internal/start_tests.sh"
 end tell
 EOF
