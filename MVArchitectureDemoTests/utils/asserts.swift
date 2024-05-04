@@ -27,8 +27,7 @@ func XCTAssertThrowsAsyncErrorEqual<T, E: Error & Equatable>(
 	error: E,
 	message: @autoclosure () -> String = "",
 	file: StaticString = #filePath,
-	line: UInt = #line,
-	errorHandler: (_ error: any Error) -> Void = { _ in }
+	line: UInt = #line
 ) async {
 	await XCTAssertThrowsAsyncError(
 		expression,
