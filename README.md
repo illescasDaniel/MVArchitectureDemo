@@ -10,5 +10,5 @@ Model View architecture demo app.
 6. TO DO: UI tests using the POM pattern. Page Object Model pattern: https://www.selenium.dev/documentation/test_practices/encouraged/page_object_models/ 
 
 Instructions:
-1. Duplicate Config.xcconfig.sample and rename it Config.xcconfig with the correct information.
-2. Run the local mock servers by running the start.sh script inside "server-mock".
+1. Duplicate “Config.xcconfig.example.xcconfig” and rename it “Config.xcconfig” with the correct information. (Don’t add it to any target)
+2. Run the local mock servers by running the “start.sh script inside "mock-server”.

@@ -1,5 +1,5 @@
 {
-  "originHash" : "8ff3efcf84c2565d943ddd49e5031f0e692b1c23d206edc18133c41603da6c05",
+  "originHash" : "9253d3368ba228a36542a4e4cbe6f25bf428947521a9b4de8cea1baf0a2a4d85",
   "pins" : [
     {
       "identity" : "dic",
@@ -17,6 +17,15 @@
       "state" : {
         "revision" : "8edc3ba892a15cd83a11c9b550c36116a12356d7",
         "version" : "1.2.0"
+      }
+    },
+    {
+      "identity" : "wmute",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/illescasDaniel/WMUTE",
+      "state" : {
+        "revision" : "2c69325d48a2163f589acb12a043f66536515ca3",
+        "version" : "1.0.0"
       }
     }
   ],

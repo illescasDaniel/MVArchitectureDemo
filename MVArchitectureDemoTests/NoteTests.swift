@@ -7,6 +7,7 @@
 
 import XCTest
 import HTTIES
+import WMUTE
 @testable import MVArchitectureDemo
 
 final class NoteTests: XCTestCase {
@@ -21,7 +22,7 @@ final class NoteTests: XCTestCase {
 	// TIP: when unsure, ask your favorite LLM about naming the function
 
 	func test_GivenServerHasData_WhenFetchNotes_ThenCorrectNotesMatch() async throws {
-		let notes = try await withMock("notes_success", action: Note.all)
+		let notes = try await withStub("notes_success", action: Note.all)
 		XCTAssertEqual(
 			notes,
 			[.init(id: "1", name: "Note1", content: "some content here!"),
@@ -31,7 +32,7 @@ final class NoteTests: XCTestCase {
 
 	func test_GivenServerFailure_WhenFetchNotes_ThenThrowsError() async throws {
 		await XCTAssertThrowsAsyncErrorEqual({
-			try await withMock("notes_failure_500", action: Note.all)
+			try await withStub("notes_failure_500", action: Note.all)
 		}, error: AppNetworkResponseError.unexpected(statusCode: 500))
 	}
 
@@ -39,14 +40,14 @@ final class NoteTests: XCTestCase {
 		let note = Note(id: "a", name: "b", content: "c")
 		note.name = "planta"
 		note.content = "bla bla bla"
-		try await withMock("note_update_content_name_success", action: note.update)
+		try await withStub("note_update_content_name_success", action: note.update)
 	}
 
 	func test_GivenValidNote_WhenUpdateNoteNameTwice_ThenUpdatedNoteNameIsLatest() async throws {
 		let note = Note(id: "a", name: "b", content: "c")
 		note.name = "planta"
 		note.name = "bla bla bla"
-		try await withMock("note_update_name_success", action: note.update)
+		try await withStub("note_update_name_success", action: note.update)
 	}
 
 	func test_GivenValidNote_WhenIsNotChanged_ThenUpdateIsAlwaysSuccessful() async throws {
@@ -59,7 +60,7 @@ final class NoteTests: XCTestCase {
 			let note = Note(id: "a", name: "b", content: "c")
 			note.name = "planta"
 			note.content = "bla bla bla"
-			try await withMock("note_update_content_name_failure_404", action: note.update)
+			try await withStub("note_update_content_name_failure_404", action: note.update)
 		}, error: AppNetworkResponseError.unexpected(statusCode: 404))
 	}
 
