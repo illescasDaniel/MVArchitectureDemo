@@ -8,7 +8,7 @@
 import Foundation
 import HTTIES
 
-extension AppNetworkResponseError: LocalizedError {
+extension AppNetworkResponseError: @retroactive LocalizedError {
 	public var errorDescription: String? {
 		switch self {
 		case let .unexpected(statusCode):

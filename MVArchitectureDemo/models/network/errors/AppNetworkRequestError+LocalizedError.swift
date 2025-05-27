@@ -8,7 +8,7 @@
 import Foundation
 import HTTIES
 
-extension AppNetworkRequestError: LocalizedError {
+extension AppNetworkRequestError: @retroactive LocalizedError {
 	public var errorDescription: String? {
 		switch self {
 		case let .invalidScheme(scheme):
