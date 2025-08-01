@@ -42,7 +42,6 @@ nonisolated(unsafe) var DI: ImmutableDependencyInjectionContainer = {
 	return builder.build()
 }()
 #else
-nonisolated(unsafe)
 let DI = DICBuilder()
 	.registerSingleton(ServerEnvironment.production)
 	.registerSingleton(
@@ -51,3 +50,5 @@ let DI = DICBuilder()
 	)
 	.build()
 #endif
+
+extension ImmutableDependencyInjectionContainer: @unchecked @retroactive Sendable {}
