@@ -27,25 +27,31 @@ struct NotesScreenView: View {
 }
 
 #Preview("error") {
-	DI.load(MockHTTPClient.self).setMock(response: .statusCode(404), path: "/notes")
+	DI.load(MockHTTPClient.self).onlyMocking(response: .statusCode(404), for: "/notes")
 	return NotesScreenView()
 }
 
 #Preview("error2") {
-	DI.load(MockHTTPClient.self).setMock(error: NSError(domain: "a", code: 1), path: "/notes")
+	DI.load(MockHTTPClient.self)
+		.removeMockData()
+		.setMock(error: NSError(domain: "a", code: 1), for: "/notes")
 	return NotesScreenView()
 }
 
 #Preview("error-json") {
-	DI.load(MockHTTPClient.self).setMock(data: Data(), response: .statusCode(200), path: "/notes")
+	DI.load(MockHTTPClient.self)
+		.removeMockData()
+		.setMock(data: Data(), response: .statusCode(200), for: MockRequest(path: "/notes", method: "GET"))
 	return NotesScreenView()
 }
 
 #Preview("empty") {
-	DI.load(MockHTTPClient.self).setMock(
-		data: NSDataAsset(name: "empty_content", bundle: .main)!.data,
-		response: .statusCode(200)
-	)
+	DI.load(MockHTTPClient.self)
+		.removeMockData()
+		.setMock(
+			data: Data(assetName: "empty_content"),
+			response: .statusCode(200)
+		)
 	return NotesScreenView()
 }
 #endif

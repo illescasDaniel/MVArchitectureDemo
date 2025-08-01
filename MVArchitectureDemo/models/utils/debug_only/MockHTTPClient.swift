@@ -10,11 +10,25 @@ import Foundation
 import HTTIES
 import SwiftUI
 
+struct MockRequest: Hashable, ExpressibleByStringLiteral {
+	let path: String
+	let method: String
+
+	init(path: String, method: String = "*") {
+		self.path = path
+		self.method = method
+	}
+
+	init(stringLiteral value: StringLiteralType) {
+		self.init(path: value)
+	}
+}
+
 final class MockHTTPClient: HTTPClient, HTTPInterceptorMixin {
 
-	static let anyPath: String = "*"
-	private var stubResponseForPath: [String: (Data, HTTPURLResponse)] = [:]
-	private var stubErrorForPath: [String: Error] = [:]
+	static let anyRequest = MockRequest(path: "*", method: "*")
+	private var stubResponseForRequest: [MockRequest: (Data, HTTPURLResponse)] = [:]
+	private var stubErrorForRequest: [MockRequest: Error] = [:]
 	private let defaultClient = HTTPClientImpl(httpDataRequestHandler: URLSession(configuration: .ephemeral))
 	var requestInterceptors: [any HTTPRequestInterceptor]
 	var responseInterceptors: [any HTTPResponseInterceptor]
@@ -26,11 +40,14 @@ final class MockHTTPClient: HTTPClient, HTTPInterceptorMixin {
 
 	func sendRequestWithoutInterceptors(_ urlRequest: URLRequest) async throws -> (Data, HTTPURLResponse) {
 		let path = urlRequest.url?.path(percentEncoded: true) ?? String()
+		let method = urlRequest.httpMethod ?? String()
+		let request = MockRequest(path: path, method: method)
+		let anyMethodForRequest = MockRequest(path: path, method: "*")
 
-		if let (data, response) = stubResponseForPath[path] ?? stubResponseForPath[Self.anyPath] {
+		if let (data, response) = stubResponseForRequest[request] ?? stubResponseForRequest[anyMethodForRequest] ?? stubResponseForRequest[Self.anyRequest] {
 			return (data, response)
 		}
-		if let error = stubErrorForPath[path] ?? stubErrorForPath[Self.anyPath] {
+		if let error = stubErrorForRequest[request] ?? stubErrorForRequest[anyMethodForRequest] ?? stubErrorForRequest[Self.anyRequest] {
 			throw error
 		}
 		
@@ -39,20 +56,39 @@ final class MockHTTPClient: HTTPClient, HTTPInterceptorMixin {
 
 	// MARK: Mock response
 
-	func setMock(data: Data = Data(), response: HTTPURLResponse, path: String = MockHTTPClient.anyPath) {
-		stubResponseForPath[path] = (data, response)
-		stubErrorForPath.removeValue(forKey: path)
+	func onlyMocking(data: Data = Data(), response: HTTPURLResponse, for request: MockRequest = MockHTTPClient.anyRequest) {
+		removeMockData()
+		setMock(data: data, response: response, for: request)
 	}
 
-	func setMock(error: Error, path: String = MockHTTPClient.anyPath) {
-		stubResponseForPath.removeValue(forKey: path)
-		stubErrorForPath[path] = error
+	@discardableResult
+	func setMock(data: Data = Data(), response: HTTPURLResponse, for request: MockRequest = MockHTTPClient.anyRequest) -> MockHTTPClient{
+		stubResponseForRequest[request] = (data, response)
+		stubErrorForRequest.removeValue(forKey: request)
+		return self
 	}
 
-	func removeMockData() {
-		stubResponseForPath.removeAll()
-		stubErrorForPath.removeAll()
+	@discardableResult
+	func setMock(error: Error, for request: MockRequest = MockHTTPClient.anyRequest) -> MockHTTPClient {
+		stubResponseForRequest.removeValue(forKey: request)
+		stubErrorForRequest[request] = error
+		return self
+	}
+
+	@discardableResult
+	func removeMockData() -> MockHTTPClient {
+		stubResponseForRequest.removeAll()
+		stubErrorForRequest.removeAll()
+		return self
 	}
 }
-
+extension Data {
+	init(assetName: String) {
+		if let data = NSDataAsset(name: assetName, bundle: .main)?.data {
+			self = data
+		} else {
+			fatalError("Couldn't find \"\(assetName)\" in the assets catalog")
+		}
+	}
+}
 #endif
