@@ -10,7 +10,7 @@ import Observation
 import HTTIES
 
 @Observable
-final class Note {
+final class Note: @unchecked Sendable {
 
 	let id: String
 	var name: String
@@ -58,7 +58,6 @@ final class Note {
 		}
 	}
 
-	@Sendable
 	static func all() async throws -> [Note] {
 		try await ServerAvailabilityManager.checkAvailability()
 		let request = try HTTPURLRequest(url: DI.load(ServerEnvironment.self).baseURL / "notes")

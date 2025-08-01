@@ -8,7 +8,7 @@
 import Foundation
 import HTTIES
 
-class ServerAvailabilityManager {
+final class ServerAvailabilityManager {
 	static func checkAvailability() async throws {
 		var statusCode: Int = -1
 		do {

@@ -3,7 +3,7 @@ import HTTIES
 import Foundation
 
 #if DEBUG
-var DI: ImmutableDependencyInjectionContainer = {
+nonisolated(unsafe) var DI: ImmutableDependencyInjectionContainer = {
 	let builder = DICBuilder()
 	if Config.isRunningUnitTests {
 		// left blank on purpose, these dependencies will be registered by reassigning DI to another container in the unit tests target
@@ -42,6 +42,7 @@ var DI: ImmutableDependencyInjectionContainer = {
 	return builder.build()
 }()
 #else
+nonisolated(unsafe)
 let DI = DICBuilder()
 	.registerSingleton(ServerEnvironment.production)
 	.registerSingleton(
