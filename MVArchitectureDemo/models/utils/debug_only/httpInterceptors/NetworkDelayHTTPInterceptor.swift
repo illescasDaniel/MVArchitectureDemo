@@ -20,7 +20,7 @@ final class NetworkDelayHTTPInterceptor: HTTPInoutRequestInterceptor {
 	}
 
 	private func setUpNetworkDelay() async throws {
-		let url = DI.get(ServerEnvironment.self).baseURL / "__admin/settings"
+		let url = DI.load(ServerEnvironment.self).baseURL / "__admin/settings"
 		let request = try HTTPURLRequest(
 			url: url,
 			httpMethod: .post,

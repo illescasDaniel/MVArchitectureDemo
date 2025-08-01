@@ -7,6 +7,7 @@
 
 import Testing
 import WMUTE
+import Foundation
 @testable import MVArchitectureDemo
 
 private class FakeClass {}

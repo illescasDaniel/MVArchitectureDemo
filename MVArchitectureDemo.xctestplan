@@ -22,6 +22,7 @@
   },
   "testTargets" : [
     {
+      "parallelizable" : false,
       "target" : {
         "containerPath" : "container:MVArchitectureDemo.xcodeproj",
         "identifier" : "6578B3A22AD4840E0004F2F4",

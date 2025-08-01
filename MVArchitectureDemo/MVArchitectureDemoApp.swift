@@ -7,14 +7,8 @@
 
 import SwiftUI
 
-let DI = DependencyInjectionFactory.get()
-
 @main
 struct MVArchitectureDemoApp: App {
-
-	init() {
-		DI.registerDependencies()
-	}
 
 	var rootView: some View {
 		NotesScreenView()

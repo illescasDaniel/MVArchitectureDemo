@@ -8,6 +8,7 @@
 #if DEBUG
 import Foundation
 import HTTIES
+import SwiftUI
 
 final class MockHTTPClient: HTTPClient, HTTPInterceptorMixin {
 
@@ -38,22 +39,14 @@ final class MockHTTPClient: HTTPClient, HTTPInterceptorMixin {
 
 	// MARK: Mock response
 
-	@discardableResult
-	func withMock<T>(
-		data: Data = Data(),
-		response: HTTPURLResponse,
-		path: String = MockHTTPClient.anyPath,
-		block: @Sendable () async throws -> T
-	) async throws -> T {
-		removeMockData()
-		setMock(data: data, response: response, path: path)
-		defer { removeMockData() }
-		return try await block()
-	}
-
 	func setMock(data: Data = Data(), response: HTTPURLResponse, path: String = MockHTTPClient.anyPath) {
 		stubResponseForPath[path] = (data, response)
 		stubErrorForPath.removeValue(forKey: path)
+	}
+
+	func setMock(error: Error, path: String = MockHTTPClient.anyPath) {
+		stubResponseForPath.removeValue(forKey: path)
+		stubErrorForPath[path] = error
 	}
 
 	func removeMockData() {

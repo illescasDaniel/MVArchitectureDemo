@@ -5,12 +5,17 @@
 //  Created by Daniel Illescas Romero on 9/10/23.
 //
 
-import XCTest
+import Testing
 import HTTIES
 import WMUTE
 @testable import MVArchitectureDemo
 
-final class NoteTests: XCTestCase {
+// .serialized because of withStub
+// parallelization across other tests suites has been disabled too
+// maybe we could do something to improve this and make it completely parallelizable
+
+@Suite(.serialized, .registerDependencies)
+struct NoteTests {
 
 	// For people unused to this naming:
 	// ----------------------------------
@@ -21,42 +26,58 @@ final class NoteTests: XCTestCase {
 	// ---
 	// TIP: when unsure, ask your favorite LLM about naming the function
 
-	func test_GivenServerHasData_WhenFetchNotes_ThenCorrectNotesMatch() async throws {
+	@Test
+	func givenServerHasData_WhenFetchNotes_ThenCorrectNotesMatch() async throws {
 		let notes = try await withStub("notes_success", action: Note.all)
-		XCTAssertEqual(
-			notes,
-			[.init(id: "1", name: "Note1", content: "some content here!"),
-			 .init(id: "2", name: "Note 2", content: "some other here")]
+		#expect(
+			notes == [
+				.init(id: "1", name: "Note1", content: "some content here!"),
+				.init(id: "2", name: "Note 2", content: "some other here")
+			]
 		)
 	}
 
-	func test_GivenServerFailure_WhenFetchNotes_ThenThrowsError() async throws {
-		await XCTAssertThrowsAsyncErrorEqual({
+	@Test
+	func givenServerFailure_WhenFetchNotes_ThenThrowsError() async throws {
+		await expectThrowsAsyncErrorEqual({
 			try await withStub("notes_failure_500", action: Note.all)
 		}, error: AppNetworkResponseError.unexpected(statusCode: 500))
 	}
 
-	func test_GivenValidNote_WhenUpdateNoteNameAndContent_ThenUpdateIsSuccessful() async throws {
+	@Test
+	func givenValidNote_WhenUpdateNoteNameAndContent_ThenUpdateIsSuccessful() async throws {
 		let note = Note(id: "a", name: "b", content: "c")
 		note.name = "planta"
 		note.content = "bla bla bla"
 		try await withStub("note_update_content_name_success", action: note.update)
+		#expect(note.id == "a")
+		#expect(note.name == "planta")
+		#expect(note.content == "bla bla bla")
 	}
 
-	func test_GivenValidNote_WhenUpdateNoteNameTwice_ThenUpdatedNoteNameIsLatest() async throws {
+	@Test
+	func givenValidNote_WhenUpdateNoteNameTwice_ThenUpdatedNoteNameIsLatest() async throws {
 		let note = Note(id: "a", name: "b", content: "c")
 		note.name = "planta"
 		note.name = "bla bla bla"
 		try await withStub("note_update_name_success", action: note.update)
+		#expect(note.id == "a")
+		#expect(note.name == "bla bla bla")
+		#expect(note.content == "c")
 	}
 
-	func test_GivenValidNote_WhenIsNotChanged_ThenUpdateIsAlwaysSuccessful() async throws {
+	@Test
+	func givenValidNote_WhenIsNotChanged_ThenUpdateIsAlwaysSuccessful() async throws {
 		let note = Note(id: "a", name: "b", content: "c")
 		try await note.update()
+		#expect(note.id == "a")
+		#expect(note.name == "b")
+		#expect(note.content == "c")
 	}
 
-	func test_GivenNonexistentID_WhenUpdate_ThenThrows404Error() async throws {
-		await XCTAssertThrowsAsyncErrorEqual({
+	@Test
+	func givenNonexistentID_WhenUpdate_ThenThrows404Error() async throws {
+		await expectThrowsAsyncErrorEqual({
 			let note = Note(id: "a", name: "b", content: "c")
 			note.name = "planta"
 			note.content = "bla bla bla"
@@ -64,21 +85,22 @@ final class NoteTests: XCTestCase {
 		}, error: AppNetworkResponseError.unexpected(statusCode: 404))
 	}
 
-	func test_GivenSomeValidNotes_WhenComparingThem_ThenComparisonMatches() {
+	@Test
+	func GivenSomeValidNotes_WhenComparingThem_ThenComparisonMatches() {
 		let noteA = Note(id: "a", name: "b", content: "c")
 		let noteB = Note(id: "a", name: "b", content: "c")
-		XCTAssertEqual(noteA, noteB)
+		#expect(noteA == noteB)
 
 		let noteC = Note(id: "a", name: "b", content: "c")
 		let noteD = Note(id: "aa", name: "b", content: "c")
-		XCTAssertNotEqual(noteC, noteD)
+		#expect(noteC != noteD)
 
 		let noteE = Note(id: "a", name: "b", content: "c")
 		let noteF = Note(id: "a", name: "bb", content: "c")
-		XCTAssertNotEqual(noteE, noteF)
+		#expect(noteE != noteF)
 
 		let noteG = Note(id: "a", name: "b", content: "c")
 		let noteH = Note(id: "a", name: "b", content: "cc")
-		XCTAssertNotEqual(noteG, noteH)
+		#expect(noteG != noteH)
 	}
 }

@@ -22,22 +22,27 @@ struct NotesScreenView: View {
 
 #if DEBUG
 #Preview {
-	DI.get(MockHTTPClient.self).removeMockData()
+	DI.load(MockHTTPClient.self).removeMockData()
 	return NotesScreenView()
 }
 
 #Preview("error") {
-	DI.get(MockHTTPClient.self).setMock(response: .statusCode(404), path: "/notes")
+	DI.load(MockHTTPClient.self).setMock(response: .statusCode(404), path: "/notes")
+	return NotesScreenView()
+}
+
+#Preview("error2") {
+	DI.load(MockHTTPClient.self).setMock(error: NSError(domain: "a", code: 1), path: "/notes")
 	return NotesScreenView()
 }
 
 #Preview("error-json") {
-	DI.get(MockHTTPClient.self).setMock(data: Data(), response: .statusCode(200), path: "/notes")
+	DI.load(MockHTTPClient.self).setMock(data: Data(), response: .statusCode(200), path: "/notes")
 	return NotesScreenView()
 }
 
 #Preview("empty") {
-	DI.get(MockHTTPClient.self).setMock(
+	DI.load(MockHTTPClient.self).setMock(
 		data: NSDataAsset(name: "empty_content", bundle: .main)!.data,
 		response: .statusCode(200)
 	)

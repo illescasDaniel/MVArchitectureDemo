@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/illescasDaniel/DIC",
       "state" : {
-        "revision" : "183b7a5bbbd818bbc65d5bbdc097c51b0e10a230",
-        "version" : "1.3.1"
+        "revision" : "dd8110d6f2373bbacd6d40d676963c3de5b7d30f",
+        "version" : "1.4.2"
       }
     },
     {
@@ -24,8 +24,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/illescasDaniel/WMUTE",
       "state" : {
-        "revision" : "2c69325d48a2163f589acb12a043f66536515ca3",
-        "version" : "1.0.0"
+        "revision" : "2ac9bee70557b9e44a1ae2e8c59a1098b7909b62",
+        "version" : "1.1.0"
       }
     }
   ],
