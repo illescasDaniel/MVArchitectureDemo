@@ -39,7 +39,6 @@ struct NotesListView: View {
 				}
 			}
 		}
-		.navigationTitle("Notes")
 		.toolbar {
 			ToolbarItem(placement: .navigationBarTrailing) {
 				Button {
@@ -93,6 +92,7 @@ struct NotesListView: View {
 	])
 	NavigationView {
 		NotesListView(noteList: $noteList)
+			.navigationTitle("Notes preview")
 	}
 }
 #endif

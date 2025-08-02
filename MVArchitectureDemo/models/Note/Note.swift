@@ -38,6 +38,8 @@ final class Note {
 				return
 			}
 
+			logger.trace("New changes: \(newChanges)")
+
 			try await ServerAvailabilityManager.checkAvailability()
 
 			let request = try HTTPURLRequest(
@@ -52,6 +54,7 @@ final class Note {
 
 			previousNoteDictionary = currentNoteDictionary
 		} catch {
+			logger.error(error)
 			// revert it back
 			if let previousNote = value(previousNoteDictionary) {
 				name = previousNote.name

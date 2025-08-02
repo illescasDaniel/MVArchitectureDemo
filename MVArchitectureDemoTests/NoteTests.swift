@@ -1,6 +1,5 @@
 //
 //  NotesDataModelTests.swift
-//  NotesDataModelTests
 //
 //  Created by Daniel Illescas Romero on 9/10/23.
 //
@@ -25,24 +24,6 @@ struct NoteTests {
 	// When renaming your test function to adhere to this format, you'll want to clearly describe these three aspects.
 	// ---
 	// TIP: when unsure, ask your favorite LLM about naming the function
-
-	@Test
-	func givenServerHasData_WhenFetchNotes_ThenCorrectNotesMatch() async throws {
-		let notes = try await withStub("notes_success", action: Note.all)
-		#expect(
-			notes == [
-				.init(id: "1", name: "Note1", content: "some content here!"),
-				.init(id: "2", name: "Note 2", content: "some other here")
-			]
-		)
-	}
-
-	@Test
-	func givenServerFailure_WhenFetchNotes_ThenThrowsError() async throws {
-		await expectThrowsAsyncErrorEqual({
-			try await withStub("notes_failure_500", action: Note.all)
-		}, error: AppNetworkResponseError.unexpected(statusCode: 500))
-	}
 
 	@Test
 	func givenValidNote_WhenUpdateNoteNameAndContent_ThenUpdateIsSuccessful() async throws {

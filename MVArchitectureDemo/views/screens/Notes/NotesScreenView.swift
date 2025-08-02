@@ -12,10 +12,10 @@ struct NotesScreenView: View {
 		ViewStateHandler { noteList in
 			NavigationStack {
 				NotesListView(noteList: noteList)
-					.navigationTitle("Something")
+					.navigationTitle("Notes")
 			}
 		} loadDataAction: {
-			try await NoteList.all()
+			try await NoteList.fetchAll()
 		} converter: { NoteList(notes: $0) }
 	}
 }

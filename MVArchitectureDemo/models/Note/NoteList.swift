@@ -24,19 +24,11 @@ final class NoteList {
 		self.previousNotes = self.notes
 	}
 
-	static func all() async throws -> [_NoteDTO] {
+	static func fetchAll() async throws -> [_NoteDTO] {
 		try await ServerAvailabilityManager.checkAvailability()
 		let request = try HTTPURLRequest(url: DI.load(ServerEnvironment.self).baseURL / "notes")
 		let noteDTOs = try await DI.load(HTTPClient.self).sendRequest(request, decoding: [_NoteDTO].self)
 		return noteDTOs
-	}
-
-	func fetch() async throws {
-		let noteDTOs = try await NoteList.all()
-		let loadedNotes = noteDTOs.map { Note($0) }
-
-		self.notes = loadedNotes
-		self.previousNotes = loadedNotes
 	}
 
 	func update() async throws {
@@ -60,8 +52,8 @@ final class NoteList {
 		// Store current state for potential rollback
 		let rollbackNotes = previousNotes
 
-		print("added notes:", addedNoteIds)
-		print("deleted notes:", deletedNoteIds)
+		logger.trace("added notes: \(addedNoteIds)")
+		logger.trace("deleted notes: \(deletedNoteIds)")
 
 		do {
 			// Process deletions first
@@ -78,13 +70,15 @@ final class NoteList {
 			previousNotes = notes
 
 		} catch {
+			logger.error(error)
 			// Rollback to previous state on error
 			notes = rollbackNotes
 			throw error
+
 		}
 	}
 
-	func createNote(_ note: Note) async throws {
+	private func createNote(_ note: Note) async throws {
 		try await ServerAvailabilityManager.checkAvailability()
 
 		let request = try HTTPURLRequest(

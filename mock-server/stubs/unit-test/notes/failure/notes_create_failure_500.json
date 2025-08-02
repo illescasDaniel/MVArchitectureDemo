@@ -1,0 +1,14 @@
+{
+	"request": {
+		"method": "POST",
+		"url": "/notes"
+	},
+
+	"response": {
+		"status": 500,
+		"headers": {
+			"Content-Type": "application/json"
+		},
+		"jsonBody": {}
+	}
+}

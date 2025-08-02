@@ -1,0 +1,19 @@
+{
+	"request": {
+		"method": "POST",
+		"url": "/notes"
+	},
+
+	"response": {
+		"status": 201,
+		"headers": {
+			"Content-Type": "application/json"
+		},
+		"jsonBody": {
+			"id": "123",
+			"name": "{{jsonPath request.body '$.name'}}",
+			"content": "{{jsonPath request.body '$.content'}}"
+		},
+		"transformers": ["response-template"]
+	}
+}
