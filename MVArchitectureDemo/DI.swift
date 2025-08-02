@@ -60,7 +60,3 @@ actor DI {
 		DI.container.load(type)
 	}
 }
-
-
-
-extension ImmutableDependencyInjectionContainer: @unchecked @retroactive Sendable {}
