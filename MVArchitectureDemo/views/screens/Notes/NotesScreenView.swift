@@ -11,7 +11,7 @@ struct NotesScreenView: View {
 	var body: some View {
 		ViewStateHandler { notes in
 			NavigationStack {
-				NotesListView(notes: notes.wrappedValue)
+				NotesListView(notes: notes.wrappedValue.map(Note.init))
 					.navigationTitle("Something")
 			}
 		} loadDataAction: {

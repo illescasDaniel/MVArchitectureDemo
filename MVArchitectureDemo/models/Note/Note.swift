@@ -10,7 +10,7 @@ import Observation
 import HTTIES
 
 @Observable
-final class Note: @unchecked Sendable {
+final class Note {
 
 	let id: String
 	var name: String
@@ -18,6 +18,10 @@ final class Note: @unchecked Sendable {
 
 	@ObservationIgnored
 	private var previousNoteDictionary: [String: AnyHashable] = [:]
+
+	convenience init(_ noteData: NoteData) {
+		self.init(id: noteData.id, name: noteData.name, content: noteData.content)
+	}
 
 	init(id: String, name: String, content: String) {
 		self.id = id
@@ -58,10 +62,16 @@ final class Note: @unchecked Sendable {
 		}
 	}
 
-	static func all() async throws -> [Note] {
+	static func all() async throws -> [NoteData] {
 		try await ServerAvailabilityManager.checkAvailability()
 		let request = try HTTPURLRequest(url: DI.load(ServerEnvironment.self).baseURL / "notes")
-		let notes = try await DI.load(HTTPClient.self).sendRequest(request, decoding: [Note].self)
+		let notes = try await DI.load(HTTPClient.self).sendRequest(request, decoding: [NoteData].self)
 		return notes
 	}
+}
+
+struct NoteData: Codable, Equatable, Sendable, Identifiable {
+	let id: String
+	let name: String
+	let content: String
 }
