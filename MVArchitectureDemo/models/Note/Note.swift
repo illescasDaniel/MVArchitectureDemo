@@ -23,7 +23,7 @@ final class Note {
 		self.init(id: noteData.id, name: noteData.name, content: noteData.content)
 	}
 
-	init(id: String, name: String, content: String) {
+	init(id: String = String(), name: String, content: String) {
 		self.id = id
 		self.name = name
 		self.content = content

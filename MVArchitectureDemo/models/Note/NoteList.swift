@@ -84,19 +84,22 @@ final class NoteList {
 		}
 	}
 
-	private func createNote(_ note: Note) async throws {
+	func createNote(_ note: Note) async throws {
 		try await ServerAvailabilityManager.checkAvailability()
 
 		let request = try HTTPURLRequest(
 			url: DI.load(ServerEnvironment.self).baseURL / "notes",
 			httpMethod: .post,
-			bodyDictionary: note.dictionary
+			bodyDictionary: note.dictionary.filter { $0.key != Note.CodingKeys.id.rawValue },
+			headers: ["Content-Type": "application/json"]
 		)
 
 		let createdNoteDTO = try await DI.load(HTTPClient.self).sendRequest(request, decoding: _NoteDTO.self)
 		let createdNote = Note(createdNoteDTO)
 
-		notes.append(createdNote)
+		if let indexOfNoteToReplace = notes.firstIndex(where: { $0.id == String() && $0.hasSameData(as: createdNote) }) {
+			notes[indexOfNoteToReplace] = createdNote
+		}
 	}
 
 	/// Delete a note from the server and remove it from the list
@@ -112,8 +115,6 @@ final class NoteList {
 		if response.statusCode != 204 && response.statusCode != 200 {
 			throw AppNetworkResponseError.unexpected(statusCode: response.statusCode)
 		}
-
-		notes.removeAll { $0.id == note.id }
 	}
 }
 

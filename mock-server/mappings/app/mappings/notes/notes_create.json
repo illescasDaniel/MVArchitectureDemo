@@ -7,14 +7,9 @@
 				"equalTo": "application/json"
 			}
 		},
-		"bodyPatterns": [
-			{
-				"matchesJsonPath": "$.name"
-			},
-			{
-				"matchesJsonPath": "$.content"
-			}
-		]
+		"bodyPatterns": [{
+			"equalToJson": { "name": "${json-unit.any-string}", "content": "${json-unit.any-string}" }
+		}]
 	},
 	
 	"response": {

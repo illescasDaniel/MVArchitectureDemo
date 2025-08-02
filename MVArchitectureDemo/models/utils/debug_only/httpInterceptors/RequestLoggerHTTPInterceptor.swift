@@ -18,6 +18,7 @@ final class HTTPLoggerInterceptor: HTTPResponseInterceptor {
 			print("""
 			+--------------------------------------------------------------------------------+
 			| - Request: \(request.url?.path(percentEncoded: false) ?? "nil")
+			|   - HTTP method: \(request.httpMethod ?? "")
 			|   - Body parameters: \(request.httpBody.map { String(decoding: $0, as: UTF8.self) } ?? "nil")
 			| - Response: \(response.statusCode)
 			|   - Body content: \(String(decoding: data, as: UTF8.self))

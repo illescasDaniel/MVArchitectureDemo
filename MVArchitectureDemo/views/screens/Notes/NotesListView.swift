@@ -16,6 +16,8 @@ struct NotesListView: View {
 	@State
 	private var isPresentingEditingNoteAlert = false
 	@State
+	private var isPresentingAddNoteAlert = false
+	@State
 	private var newName: String = ""
 	@State
 	private var newContent: String = ""
@@ -37,10 +39,36 @@ struct NotesListView: View {
 				}
 			}
 		}
+		.navigationTitle("Notes")
+		.toolbar {
+			ToolbarItem(placement: .navigationBarTrailing) {
+				Button {
+					newName = ""
+					newContent = ""
+					isPresentingAddNoteAlert = true
+				} label: {
+					Image(systemName: "plus")
+				}
+			}
+		}
+		.alert("Add Note", isPresented: $isPresentingAddNoteAlert) {
+			TextField("Note name", text: $newName)
+			TextField("Note content", text: $newContent)
+
+			Button(role: .cancel, action: {}, label: {
+				Text("Cancel")
+			})
+
+			Button("Add") {
+				let newNote = Note(name: newName, content: newContent)
+				noteList.notes.append(newNote)
+			}
+			.disabled(newName.isEmpty)
+		}
 		.alert("Modify note", isPresented: $isPresentingEditingNoteAlert, presenting: editingNote) { note in
 			TextField("New name", text: $newName)
 			TextField("New content", text: $newContent)
-			
+
 			Button(role: .cancel, action: {}, label: {
 				Text("Cancel")
 			})
@@ -51,7 +79,7 @@ struct NotesListView: View {
 				Task { try? await note.update() }
 			}
 		}
-		.onChange(of: noteList.notes) { [noteList] oldValue, newValue in
+		.onChange(of: noteList.notes) { [noteList] _, _ in
 			Task { try? await noteList.update() }
 		}
 	}
@@ -63,6 +91,8 @@ struct NotesListView: View {
 		.init(id: "1", name: "Demo 1", content: "Content 1"),
 		.init(id: "2", name: "Demo 2", content: "Content 2"),
 	])
-	NotesListView(noteList: $noteList)
+	NavigationView {
+		NotesListView(noteList: $noteList)
+	}
 }
 #endif

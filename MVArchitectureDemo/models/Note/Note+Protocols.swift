@@ -41,4 +41,10 @@ extension Note: Equatable {
 		guard lhs.content == rhs.content else { return false }
 		return true
 	}
+
+	func hasSameData(as other: Note) -> Bool {
+		guard name == other.name else { return false }
+		guard content == other.content else { return false }
+		return true
+	}
 }
