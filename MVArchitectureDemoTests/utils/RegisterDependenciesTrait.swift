@@ -15,19 +15,20 @@ struct RegisterDependenciesTrait: SuiteTrait, TestScoping {
 	
 	func provideScope(for test: Test, testCase: Test.Case?, performing function: @Sendable () async throws -> Void) async throws {
 		if test.isSuite {
-			registerDependencies()
+			await registerDependencies()
 		}
 		try await function()
 	}
 
-	private func registerDependencies() {
-		DI = DICBuilder()
+	private func registerDependencies() async {
+		let newDependencies = DICBuilder()
 			.registerSingleton(ServerEnvironment.localTests)
 			.registerSingleton(
 				HTTPClientImpl(httpDataRequestHandler: URLSession(configuration: .ephemeral)),
 				as: HTTPClient.self
 			)
 			.build()
+		DI.updateContainer(newDependencies)
 	}
 }
 
