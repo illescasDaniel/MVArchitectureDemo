@@ -55,6 +55,8 @@ final class NoteList {
 		logger.trace("added notes: \(addedNoteIds)")
 		logger.trace("deleted notes: \(deletedNoteIds)")
 
+		// We could have endpoints to delete a bunch of notes or to create a bunch of notes at ones; or both
+		// This app and code are just some simple examples
 		do {
 			// Process deletions first
 			for note in deletedNotes {
