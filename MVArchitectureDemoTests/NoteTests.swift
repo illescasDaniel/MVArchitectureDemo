@@ -47,6 +47,7 @@ struct NoteTests {
 		#expect(note.content == "c")
 	}
 
+	@MainActor
 	@Test
 	func givenValidNote_WhenIsNotChanged_ThenUpdateIsAlwaysSuccessful() async throws {
 		let note = Note(id: "a", name: "b", content: "c")

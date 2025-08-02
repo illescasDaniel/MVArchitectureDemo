@@ -30,6 +30,7 @@ struct NoteListTests {
 		}, error: AppNetworkResponseError.unexpected(statusCode: 500))
 	}
 
+	@MainActor
 	@Test
 	func givenNoNoteListChanges_WhenUpdateNotes_ThenNoChangesInNotesMatch() async throws {
 		let noteList = NoteList(notes: [.init(id: "a", name: "b", content: "c")])
