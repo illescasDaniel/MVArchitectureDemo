@@ -1,0 +1,32 @@
+{
+	"request": {
+		"method": "POST",
+		"url": "/notes",
+		"headers": {
+			"Content-Type": {
+				"equalTo": "application/json"
+			}
+		},
+		"bodyPatterns": [
+			{
+				"matchesJsonPath": "$.name"
+			},
+			{
+				"matchesJsonPath": "$.content"
+			}
+		]
+	},
+	
+	"response": {
+		"status": 201,
+		"headers": {
+			"Content-Type": "application/json"
+		},
+		"jsonBody": {
+			"id": "{{randomValue length=10 type='ALPHANUMERIC'}}",
+			"name": "{{jsonPath request.body '$.name'}}",
+			"content": "{{jsonPath request.body '$.content'}}"
+		},
+		"transformers": ["response-template"]
+	}
+}

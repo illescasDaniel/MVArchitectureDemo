@@ -9,14 +9,14 @@ import SwiftUI
 
 struct NotesScreenView: View {
 	var body: some View {
-		ViewStateHandler { notes in
+		ViewStateHandler { noteList in
 			NavigationStack {
-				NotesListView(notes: notes)
+				NotesListView(noteList: noteList)
 					.navigationTitle("Something")
 			}
 		} loadDataAction: {
-			try await Note.all()
-		} converter: { $0.map(Note.init) }
+			try await NoteList.all()
+		} converter: { NoteList(notes: $0) }
 	}
 }
 

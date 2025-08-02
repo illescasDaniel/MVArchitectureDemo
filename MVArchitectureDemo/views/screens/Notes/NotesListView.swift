@@ -9,7 +9,7 @@ import SwiftUI
 
 struct NotesListView: View {
 
-	@Binding var notes: [Note]
+	@Binding var noteList: NoteList
 
 	@State
 	private var editingNote: Note?
@@ -21,7 +21,7 @@ struct NotesListView: View {
 	private var newContent: String = ""
 
 	var body: some View {
-		List($notes, editActions: .delete) { note in
+		List($noteList.notes, editActions: .delete) { note in
 			Button {
 				editingNote = note.wrappedValue
 				newName = note.wrappedValue.name
@@ -51,18 +51,18 @@ struct NotesListView: View {
 				Task { try? await note.update() }
 			}
 		}
-		.onChange(of: notes) { oldValue, newValue in
-			print(oldValue, newValue)
+		.onChange(of: noteList.notes) { [noteList] oldValue, newValue in
+			Task { try? await noteList.update() }
 		}
 	}
 }
 
 #if DEBUG
 #Preview {
-	@Previewable @State var notes: [Note] = [
+	@Previewable @State var noteList: NoteList = NoteList(notes: [
 		.init(id: "1", name: "Demo 1", content: "Content 1"),
 		.init(id: "2", name: "Demo 2", content: "Content 2"),
-	]
-	NotesListView(notes: $notes)
+	])
+	NotesListView(noteList: $noteList)
 }
 #endif

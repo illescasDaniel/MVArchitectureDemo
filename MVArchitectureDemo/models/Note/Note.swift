@@ -61,13 +61,6 @@ final class Note {
 			throw error
 		}
 	}
-
-	static func all() async throws -> [_NoteDTO] {
-		try await ServerAvailabilityManager.checkAvailability()
-		let request = try HTTPURLRequest(url: DI.load(ServerEnvironment.self).baseURL / "notes")
-		let notes = try await DI.load(HTTPClient.self).sendRequest(request, decoding: [_NoteDTO].self)
-		return notes
-	}
 }
 
 /// A data transfer object, just useful for transfering its data across. You should convert it to Note to use it.
