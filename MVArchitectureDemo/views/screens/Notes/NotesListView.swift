@@ -9,8 +9,8 @@ import SwiftUI
 
 struct NotesListView: View {
 
-	let notes: [Note]
-	
+	@Binding var notes: [Note]
+
 	@State
 	private var editingNote: Note?
 	@State
@@ -21,22 +21,23 @@ struct NotesListView: View {
 	private var newContent: String = ""
 
 	var body: some View {
-		List(notes) { note in
+		List($notes, editActions: .delete) { note in
 			Button {
-				editingNote = note
-				newName = note.name
-				newContent = note.content
+				editingNote = note.wrappedValue
+				newName = note.wrappedValue.name
+				newContent = note.wrappedValue.content
 				withAnimation {
 					isPresentingEditingNoteAlert = true
 				}
 			} label: {
 				VStack(alignment: .leading) {
-					Text(note.name)
-					Text(note.content)
+					Text(note.wrappedValue.name)
+					Text(note.wrappedValue.content)
 						.font(.footnote)
 				}
 			}
-		}.alert("Modify note", isPresented: $isPresentingEditingNoteAlert, presenting: editingNote) { note in
+		}
+		.alert("Modify note", isPresented: $isPresentingEditingNoteAlert, presenting: editingNote) { note in
 			TextField("New name", text: $newName)
 			TextField("New content", text: $newContent)
 			
@@ -50,14 +51,18 @@ struct NotesListView: View {
 				Task { try? await note.update() }
 			}
 		}
+		.onChange(of: notes) { oldValue, newValue in
+			print(oldValue, newValue)
+		}
 	}
 }
 
 #if DEBUG
 #Preview {
-	NotesListView(notes: [
+	@Previewable @State var notes: [Note] = [
 		.init(id: "1", name: "Demo 1", content: "Content 1"),
 		.init(id: "2", name: "Demo 2", content: "Content 2"),
-	])
+	]
+	NotesListView(notes: $notes)
 }
 #endif
