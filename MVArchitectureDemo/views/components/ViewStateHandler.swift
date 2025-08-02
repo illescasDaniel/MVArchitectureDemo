@@ -57,6 +57,59 @@ struct ViewStateHandler<Content: View, T: Equatable & EmptyProtocol & Sendable, 
 		self.init(contentBuilder: contentBuilder, loadDataAction: getData, converter: nil, loadingAnyView: { AnyView(loadingView($0, $1)) }, errorAnyView: nil, emptyAnyView: nil)
 	}
 
+	init<ErrorContent: View>(
+		contentBuilder: @escaping (Binding<T>) -> Content,
+		loadDataAction getData: @escaping () async throws -> T,
+		errorView: @escaping ((Error, Binding<ViewState>, @escaping () async -> Void) -> ErrorContent)
+	) where T == U {
+		self.init(contentBuilder: contentBuilder, loadDataAction: getData, converter: nil, loadingAnyView: nil, errorAnyView: { AnyView(errorView($0, $1, $2)) }, emptyAnyView: nil)
+	}
+
+	init<EmptyContent: View>(
+		contentBuilder: @escaping (Binding<T>) -> Content,
+		loadDataAction getData: @escaping () async throws -> T,
+		emptyView: @escaping ((T, Binding<ViewState>, @escaping () async -> Void) -> EmptyContent)
+	) where T == U {
+		self.init(contentBuilder: contentBuilder, loadDataAction: getData, converter: nil, loadingAnyView: nil, errorAnyView: nil, emptyAnyView: { AnyView(emptyView($0, $1, $2)) })
+	}
+
+	init<LoadingContent: View, ErrorContent: View>(
+		contentBuilder: @escaping (Binding<T>) -> Content,
+		loadDataAction getData: @escaping () async throws -> T,
+		loadingView: @escaping ((Binding<ViewState>, @escaping () async -> Void) -> LoadingContent),
+		errorView: @escaping ((Error, Binding<ViewState>, @escaping () async -> Void) -> ErrorContent)
+	) where T == U {
+		self.init(contentBuilder: contentBuilder, loadDataAction: getData, converter: nil, loadingAnyView: { AnyView(loadingView($0, $1)) }, errorAnyView: { AnyView(errorView($0, $1, $2)) }, emptyAnyView: nil)
+	}
+
+	init<LoadingContent: View, EmptyContent: View>(
+		contentBuilder: @escaping (Binding<T>) -> Content,
+		loadDataAction getData: @escaping () async throws -> T,
+		loadingView: @escaping ((Binding<ViewState>, @escaping () async -> Void) -> LoadingContent),
+		emptyView: @escaping ((T, Binding<ViewState>, @escaping () async -> Void) -> EmptyContent)
+	) where T == U {
+		self.init(contentBuilder: contentBuilder, loadDataAction: getData, converter: nil, loadingAnyView: { AnyView(loadingView($0, $1)) }, errorAnyView: nil, emptyAnyView: { AnyView(emptyView($0, $1, $2)) })
+	}
+
+	init<ErrorContent: View, EmptyContent: View>(
+		contentBuilder: @escaping (Binding<T>) -> Content,
+		loadDataAction getData: @escaping () async throws -> T,
+		errorView: @escaping ((Error, Binding<ViewState>, @escaping () async -> Void) -> ErrorContent),
+		emptyView: @escaping ((T, Binding<ViewState>, @escaping () async -> Void) -> EmptyContent)
+	) where T == U {
+		self.init(contentBuilder: contentBuilder, loadDataAction: getData, converter: nil, loadingAnyView: nil, errorAnyView: { AnyView(errorView($0, $1, $2)) }, emptyAnyView: { AnyView(emptyView($0, $1, $2)) })
+	}
+
+	init<LoadingContent: View, ErrorContent: View, EmptyContent: View>(
+		contentBuilder: @escaping (Binding<T>) -> Content,
+		loadDataAction getData: @escaping () async throws -> T,
+		loadingView: @escaping ((Binding<ViewState>, @escaping () async -> Void) -> LoadingContent),
+		errorView: @escaping ((Error, Binding<ViewState>, @escaping () async -> Void) -> ErrorContent),
+		emptyView: @escaping ((T, Binding<ViewState>, @escaping () async -> Void) -> EmptyContent)
+	) where T == U {
+		self.init(contentBuilder: contentBuilder, loadDataAction: getData, converter: nil, loadingAnyView: { AnyView(loadingView($0, $1)) }, errorAnyView: { AnyView(errorView($0, $1, $2)) }, emptyAnyView: { AnyView(emptyView($0, $1, $2)) })
+	}
+
 	// MARK: - Initializers with converter
 	init(
 		contentBuilder: @escaping (Binding<U>) -> Content,
