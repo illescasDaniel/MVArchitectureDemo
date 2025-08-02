@@ -31,6 +31,7 @@ final class NoteList {
 		return noteDTOs
 	}
 
+	@MainActor
 	func update() async throws {
 		let currentNotes = notes
 		let previousNoteIds = Set(previousNotes.map { $0.id })
@@ -60,12 +61,12 @@ final class NoteList {
 		do {
 			// Process deletions first
 			for note in deletedNotes {
-				try await deleteNote(note)
+				try await deleteNote(note.id)
 			}
 
 			// Process additions
 			for note in addedNotes {
-				try await createNote(note)
+				try await createNote(note.noteData)
 			}
 
 			// Update the previous state to current after successful sync
@@ -80,13 +81,30 @@ final class NoteList {
 		}
 	}
 
-	private func createNote(_ note: Note) async throws {
+	/// Delete a note from the server and remove it from the list
+	@MainActor
+	private func deleteNote(_ noteID: String) async throws {
+		try await ServerAvailabilityManager.checkAvailability()
+
+		let request = try HTTPURLRequest(
+			url: DI.load(ServerEnvironment.self).baseURL / "notes" / noteID,
+			httpMethod: .delete
+		)
+
+		let (_, response) = try await DI.load(HTTPClient.self).sendRequest(request)
+		if response.statusCode != 204 && response.statusCode != 200 {
+			throw AppNetworkResponseError.unexpected(statusCode: response.statusCode)
+		}
+	}
+
+	@MainActor
+	private func createNote(_ noteData: NoteDTO) async throws {
 		try await ServerAvailabilityManager.checkAvailability()
 
 		let request = try HTTPURLRequest(
 			url: DI.load(ServerEnvironment.self).baseURL / "notes",
 			httpMethod: .post,
-			bodyDictionary: note.noteData.dictionary,
+			bodyDictionary: noteData.dictionary,
 			headers: ["Content-Type": "application/json"]
 		)
 
@@ -98,20 +116,6 @@ final class NoteList {
 		}
 	}
 
-	/// Delete a note from the server and remove it from the list
-	private func deleteNote(_ note: Note) async throws {
-		try await ServerAvailabilityManager.checkAvailability()
-
-		let request = try HTTPURLRequest(
-			url: DI.load(ServerEnvironment.self).baseURL / "notes" / note.id,
-			httpMethod: .delete
-		)
-
-		let (_, response) = try await DI.load(HTTPClient.self).sendRequest(request)
-		if response.statusCode != 204 && response.statusCode != 200 {
-			throw AppNetworkResponseError.unexpected(statusCode: response.statusCode)
-		}
-	}
 }
 
 extension NoteList: EmptyProtocol {

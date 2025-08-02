@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/illescasDaniel/HTTIES",
       "state" : {
-        "revision" : "8edc3ba892a15cd83a11c9b550c36116a12356d7",
-        "version" : "1.2.0"
+        "revision" : "0acc56d6d75793293a520f754c25a4fcbadc314c",
+        "version" : "1.2.2"
       }
     },
     {

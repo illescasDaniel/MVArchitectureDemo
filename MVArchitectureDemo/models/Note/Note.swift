@@ -34,6 +34,7 @@ final class Note: Identifiable {
 		self.previousNoteDictionary = noteData.dictionary
 	}
 
+	@MainActor
 	func update() async throws {
 		do {
 			let currentNoteDictionary = noteData.dictionary
@@ -52,6 +53,7 @@ final class Note: Identifiable {
 				bodyDictionary: newChanges,
 				headers: ["Content-Type": "application/json"]
 			)
+
 			let (_, response) = try await DI.load(HTTPClient.self).sendRequest(request)
 			if response.statusCode != 204 {
 				throw AppNetworkResponseError.unexpected(statusCode: response.statusCode)
