@@ -7,7 +7,6 @@
 
 #if DEBUG
 import Foundation
-import DIC
 
 final class Config {
 

@@ -10,16 +10,20 @@ import Observation
 import HTTIES
 
 @Observable
-final class Note {
+final class Note: Identifiable {
 
 	let id: String
 	var name: String
 	var content: String
 
+	var noteData: NoteDTO {
+		.init(id: id, name: name, content: content)
+	}
+
 	@ObservationIgnored
 	private var previousNoteDictionary: [String: AnyHashable] = [:]
 
-	convenience init(_ noteData: _NoteDTO) {
+	convenience init(_ noteData: NoteDTO) {
 		self.init(id: noteData.id, name: noteData.name, content: noteData.content)
 	}
 
@@ -27,12 +31,12 @@ final class Note {
 		self.id = id
 		self.name = name
 		self.content = content
-		self.previousNoteDictionary = dictionary
+		self.previousNoteDictionary = noteData.dictionary
 	}
 
 	func update() async throws {
 		do {
-			let currentNoteDictionary = dictionary
+			let currentNoteDictionary = noteData.dictionary
 			let newChanges = currentNoteDictionary.filter { previousNoteDictionary[$0] != $1 }
 			if newChanges.isEmpty {
 				return
@@ -45,7 +49,8 @@ final class Note {
 			let request = try HTTPURLRequest(
 				url: DI.load(ServerEnvironment.self).baseURL / "notes" / self.id,
 				httpMethod: .patch,
-				bodyDictionary: newChanges
+				bodyDictionary: newChanges,
+				headers: ["Content-Type": "application/json"]
 			)
 			let (_, response) = try await DI.load(HTTPClient.self).sendRequest(request)
 			if response.statusCode != 204 {
@@ -56,7 +61,7 @@ final class Note {
 		} catch {
 			logger.error(error)
 			// revert it back
-			if let previousNote = value(previousNoteDictionary) {
+			if let previousNote = noteData.value(previousNoteDictionary) {
 				name = previousNote.name
 				content = previousNote.content
 			}
@@ -66,9 +71,17 @@ final class Note {
 	}
 }
 
-/// A data transfer object, just useful for transfering its data across. You should convert it to Note to use it.
-struct _NoteDTO: Codable, Equatable, Sendable, Identifiable {
-	let id: String
-	let name: String
-	let content: String
+extension Note: Equatable {
+	static func == (lhs: Note, rhs: Note) -> Bool {
+		guard lhs.id == rhs.id else { return false }
+		guard lhs.name == rhs.name else { return false }
+		guard lhs.content == rhs.content else { return false }
+		return true
+	}
+
+	func hasSameData(as other: Note) -> Bool {
+		guard name == other.name else { return false }
+		guard content == other.content else { return false }
+		return true
+	}
 }

@@ -31,6 +31,13 @@ struct NoteListTests {
 	}
 
 	@Test
+	func givenNoNoteListChanges_WhenUpdateNotes_ThenNoChangesInNotesMatch() async throws {
+		let noteList = NoteList(notes: [.init(id: "a", name: "b", content: "c")])
+		try await noteList.update()
+		#expect(noteList.notes == [Note(id: "a", name: "b", content: "c")])
+	}
+
+	@Test
 	func givenServerNewNoteCreated_WhenUpdateNotes_ThenCorrectNotesMatch() async throws {
 		let noteList = NoteList(notes: [.init(id: "a", name: "b", content: "c")])
 		noteList.notes.append(Note(name: "aaaa", content: "bbb"))
@@ -45,5 +52,23 @@ struct NoteListTests {
 		await expectThrowsAsyncErrorEqual({
 			try await withStub("notes_create_failure_500", action: noteList.update)
 		}, error: AppNetworkResponseError.unexpected(statusCode: 500))
+	}
+
+	@Test
+	func givenServerNoteDeleted_WhenUpdateNotes_ThenCorrectNotesMatch() async throws {
+		let noteList = NoteList(notes: [.init(id: "a", name: "b", content: "c")])
+		noteList.notes.remove(at: 0)
+		try await withStub("notes_delete_success", action: noteList.update)
+		#expect(noteList.isEmpty)
+	}
+
+	@Test
+	func givenNoteDeletedAndServerFailure_WhenUpdateNotes_ThenThrowsError() async throws {
+		let noteList = NoteList(notes: [.init(id: "a", name: "b", content: "c")])
+		noteList.notes.remove(at: 0)
+		await expectThrowsAsyncErrorEqual({
+			try await withStub("notes_delete_failure_500", action: noteList.update)
+		}, error: AppNetworkResponseError.unexpected(statusCode: 500))
+		#expect(!noteList.isEmpty)
 	}
 }

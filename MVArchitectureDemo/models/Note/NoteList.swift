@@ -18,16 +18,16 @@ final class NoteList {
 
 	init() {}
 
-	convenience init(notes: [_NoteDTO]) {
+	convenience init(notes: [NoteDTO]) {
 		self.init()
 		self.notes = notes.map(Note.init)
 		self.previousNotes = self.notes
 	}
 
-	static func fetchAll() async throws -> [_NoteDTO] {
+	static func fetchAll() async throws -> [NoteDTO] {
 		try await ServerAvailabilityManager.checkAvailability()
 		let request = try HTTPURLRequest(url: DI.load(ServerEnvironment.self).baseURL / "notes")
-		let noteDTOs = try await DI.load(HTTPClient.self).sendRequest(request, decoding: [_NoteDTO].self)
+		let noteDTOs = try await DI.load(HTTPClient.self).sendRequest(request, decoding: [NoteDTO].self)
 		return noteDTOs
 	}
 
@@ -84,11 +84,11 @@ final class NoteList {
 		let request = try HTTPURLRequest(
 			url: DI.load(ServerEnvironment.self).baseURL / "notes",
 			httpMethod: .post,
-			bodyDictionary: note.dictionary.filter { $0.key != Note.CodingKeys.id.rawValue },
+			bodyDictionary: note.noteData.dictionary,
 			headers: ["Content-Type": "application/json"]
 		)
 
-		let createdNoteDTO = try await DI.load(HTTPClient.self).sendRequest(request, decoding: _NoteDTO.self)
+		let createdNoteDTO = try await DI.load(HTTPClient.self).sendRequest(request, decoding: NoteDTO.self)
 		let createdNote = Note(createdNoteDTO)
 
 		if let indexOfNoteToReplace = notes.firstIndex(where: { $0.id == String() && $0.hasSameData(as: createdNote) }) {

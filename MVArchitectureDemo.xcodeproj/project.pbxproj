@@ -15,11 +15,13 @@
 		652305D72B54084000107A1E /* AppServerAvailabilityError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305D62B54084000107A1E /* AppServerAvailabilityError.swift */; };
 		652305E52B5421C300107A1E /* AppNetworkResponseError+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305E42B5421C300107A1E /* AppNetworkResponseError+LocalizedError.swift */; };
 		652305E72B5421EE00107A1E /* AppNetworkRequestError+LocalizedError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305E62B5421EE00107A1E /* AppNetworkRequestError+LocalizedError.swift */; };
-		652305EA2B5422C700107A1E /* Note+Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 652305E92B5422C700107A1E /* Note+Protocols.swift */; };
 		654F922B2E3E16D500C3EF4D /* NoteList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654F922A2E3E16D300C3EF4D /* NoteList.swift */; };
 		654F922D2E3E25D200C3EF4D /* NoteListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654F922C2E3E25CF00C3EF4D /* NoteListTests.swift */; };
 		654F92312E3E26F900C3EF4D /* notes_create_failure_500.json in Resources */ = {isa = PBXBuildFile; fileRef = 654F92302E3E26F900C3EF4D /* notes_create_failure_500.json */; };
 		654F92352E3E278900C3EF4D /* notes_create_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 654F92342E3E278900C3EF4D /* notes_create_success.json */; };
+		654F923B2E3E292900C3EF4D /* notes_delete_success.json in Resources */ = {isa = PBXBuildFile; fileRef = 654F923A2E3E292900C3EF4D /* notes_delete_success.json */; };
+		654F923F2E3E2A0300C3EF4D /* notes_delete_failure_500.json in Resources */ = {isa = PBXBuildFile; fileRef = 654F923E2E3E2A0300C3EF4D /* notes_delete_failure_500.json */; };
+		654F92412E3E2B9A00C3EF4D /* NoteDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 654F92402E3E2B9A00C3EF4D /* NoteDTO.swift */; };
 		6555B2542B7F5FC000ED8A8C /* withStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6555B2532B7F5FC000ED8A8C /* withStub.swift */; };
 		6555B25B2B7FABFB00ED8A8C /* XCTestCase+App.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6555B25A2B7FABFB00ED8A8C /* XCTestCase+App.swift */; };
 		6555B25D2B7FCFEC00ED8A8C /* ViewStateHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6555B25C2B7FCFEC00ED8A8C /* ViewStateHandler.swift */; };
@@ -79,11 +81,13 @@
 		652305D62B54084000107A1E /* AppServerAvailabilityError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppServerAvailabilityError.swift; sourceTree = "<group>"; };
 		652305E42B5421C300107A1E /* AppNetworkResponseError+LocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppNetworkResponseError+LocalizedError.swift"; sourceTree = "<group>"; };
 		652305E62B5421EE00107A1E /* AppNetworkRequestError+LocalizedError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "AppNetworkRequestError+LocalizedError.swift"; sourceTree = "<group>"; };
-		652305E92B5422C700107A1E /* Note+Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Note+Protocols.swift"; sourceTree = "<group>"; };
 		654F922A2E3E16D300C3EF4D /* NoteList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteList.swift; sourceTree = "<group>"; };
 		654F922C2E3E25CF00C3EF4D /* NoteListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteListTests.swift; sourceTree = "<group>"; };
 		654F92302E3E26F900C3EF4D /* notes_create_failure_500.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = notes_create_failure_500.json; sourceTree = "<group>"; };
 		654F92342E3E278900C3EF4D /* notes_create_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = notes_create_success.json; sourceTree = "<group>"; };
+		654F923A2E3E292900C3EF4D /* notes_delete_success.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = notes_delete_success.json; sourceTree = "<group>"; };
+		654F923E2E3E2A0300C3EF4D /* notes_delete_failure_500.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = notes_delete_failure_500.json; sourceTree = "<group>"; };
+		654F92402E3E2B9A00C3EF4D /* NoteDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDTO.swift; sourceTree = "<group>"; };
 		6555B2532B7F5FC000ED8A8C /* withStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = withStub.swift; sourceTree = "<group>"; };
 		6555B2562B7FA0B700ED8A8C /* MVArchitectureDemoUI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = MVArchitectureDemoUI.xctestplan; sourceTree = "<group>"; };
 		6555B25A2B7FABFB00ED8A8C /* XCTestCase+App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+App.swift"; sourceTree = "<group>"; };
@@ -381,9 +385,9 @@
 		65A71E352B0BB3E600A47D8A /* Note */ = {
 			isa = PBXGroup;
 			children = (
+				654F92402E3E2B9A00C3EF4D /* NoteDTO.swift */,
 				654F922A2E3E16D300C3EF4D /* NoteList.swift */,
 				6578B3C92AD48A050004F2F4 /* Note.swift */,
-				652305E92B5422C700107A1E /* Note+Protocols.swift */,
 			);
 			path = Note;
 			sourceTree = "<group>";
@@ -428,6 +432,7 @@
 				65F1247F2BE685640010E3FF /* note_update_content_name_failure_404.json */,
 				65F124802BE685640010E3FF /* notes_failure_500.json */,
 				654F92302E3E26F900C3EF4D /* notes_create_failure_500.json */,
+				654F923E2E3E2A0300C3EF4D /* notes_delete_failure_500.json */,
 			);
 			path = failure;
 			sourceTree = "<group>";
@@ -440,6 +445,7 @@
 				65F124842BE685640010E3FF /* note_update_name_success.json */,
 				65F124852BE685640010E3FF /* notes_success.json */,
 				654F92342E3E278900C3EF4D /* notes_create_success.json */,
+				654F923A2E3E292900C3EF4D /* notes_delete_success.json */,
 			);
 			path = success;
 			sourceTree = "<group>";
@@ -650,8 +656,10 @@
 				65F1248B2BE685640010E3FF /* note_update_content_name_success.json in Resources */,
 				65F1248A2BE685640010E3FF /* notes_failure_500.json in Resources */,
 				654F92352E3E278900C3EF4D /* notes_create_success.json in Resources */,
+				654F923B2E3E292900C3EF4D /* notes_delete_success.json in Resources */,
 				65F124892BE685640010E3FF /* note_update_content_name_failure_404.json in Resources */,
 				65F1248E2BE685640010E3FF /* notes_success.json in Resources */,
+				654F923F2E3E2A0300C3EF4D /* notes_delete_failure_500.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -682,7 +690,6 @@
 				65A4DD4F2E3CD6E200554EB4 /* MockHTTPClient.swift in Sources */,
 				65A4DD502E3CD6E200554EB4 /* NetworkDelayHTTPInterceptor.swift in Sources */,
 				6578B3982AD4840D0004F2F4 /* NotesScreenView.swift in Sources */,
-				652305EA2B5422C700107A1E /* Note+Protocols.swift in Sources */,
 				652305E72B5421EE00107A1E /* AppNetworkRequestError+LocalizedError.swift in Sources */,
 				6578B3962AD4840D0004F2F4 /* MVArchitectureDemoApp.swift in Sources */,
 				656EBD452B48A18500043A1A /* DictionaryRepresentable.swift in Sources */,
@@ -690,6 +697,7 @@
 				654F922B2E3E16D500C3EF4D /* NoteList.swift in Sources */,
 				6555B25D2B7FCFEC00ED8A8C /* ViewStateHandler.swift in Sources */,
 				65AC83D42AD59B0B0045F183 /* Logger+Utils.swift in Sources */,
+				654F92412E3E2B9A00C3EF4D /* NoteDTO.swift in Sources */,
 				6578B3D02AD49D180004F2F4 /* NotesListView.swift in Sources */,
 				6578B3C12AD4876D0004F2F4 /* ServerEnvironment.swift in Sources */,
 			);
