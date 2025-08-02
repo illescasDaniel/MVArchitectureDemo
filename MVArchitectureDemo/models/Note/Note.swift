@@ -19,7 +19,7 @@ final class Note {
 	@ObservationIgnored
 	private var previousNoteDictionary: [String: AnyHashable] = [:]
 
-	convenience init(_ noteData: NoteData) {
+	convenience init(_ noteData: _NoteDTO) {
 		self.init(id: noteData.id, name: noteData.name, content: noteData.content)
 	}
 
@@ -62,15 +62,16 @@ final class Note {
 		}
 	}
 
-	static func all() async throws -> [NoteData] {
+	static func all() async throws -> [_NoteDTO] {
 		try await ServerAvailabilityManager.checkAvailability()
 		let request = try HTTPURLRequest(url: DI.load(ServerEnvironment.self).baseURL / "notes")
-		let notes = try await DI.load(HTTPClient.self).sendRequest(request, decoding: [NoteData].self)
+		let notes = try await DI.load(HTTPClient.self).sendRequest(request, decoding: [_NoteDTO].self)
 		return notes
 	}
 }
 
-struct NoteData: Codable, Equatable, Sendable, Identifiable {
+/// A data transfer object, just useful for transfering its data across. You should convert it to Note to use it.
+struct _NoteDTO: Codable, Equatable, Sendable, Identifiable {
 	let id: String
 	let name: String
 	let content: String

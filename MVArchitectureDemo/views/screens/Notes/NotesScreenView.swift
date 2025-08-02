@@ -11,12 +11,12 @@ struct NotesScreenView: View {
 	var body: some View {
 		ViewStateHandler { notes in
 			NavigationStack {
-				NotesListView(notes: notes.wrappedValue.map(Note.init))
+				NotesListView(notes: notes.wrappedValue)
 					.navigationTitle("Something")
 			}
 		} loadDataAction: {
 			try await Note.all()
-		}
+		} converter: { $0.map(Note.init) }
 	}
 }
 
