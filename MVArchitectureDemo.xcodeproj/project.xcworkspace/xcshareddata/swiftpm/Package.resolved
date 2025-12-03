@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/illescasDaniel/DIC",
       "state" : {
-        "revision" : "dd8110d6f2373bbacd6d40d676963c3de5b7d30f",
-        "version" : "1.4.2"
+        "branch" : "main",
+        "revision" : "902870c2251bb9148114e767dbc22d5d00f556b4"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/illescasDaniel/HTTIES",
       "state" : {
-        "revision" : "0acc56d6d75793293a520f754c25a4fcbadc314c",
-        "version" : "1.2.2"
+        "branch" : "main",
+        "revision" : "a79134436200d0168944fe1e395861a9f22869c2"
       }
     },
     {

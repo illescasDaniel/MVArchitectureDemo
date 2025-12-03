@@ -8,7 +8,7 @@
 #if DEBUG
 import Foundation
 
-final class Config {
+nonisolated struct Config {
 
 	static let networkDelayInMilliseconds: Int = 200
 

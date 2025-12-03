@@ -18,11 +18,11 @@ enum StubError: Error {
 }
 
 @discardableResult
-func withStub<T>(
+nonisolated func withStub<T>(
 	_ stubFileName: String,
-	action: () async throws -> T
+	action: @Sendable () async throws -> T
 ) async throws -> T {
-	let baseURL = DI.load(ServerEnvironment.self).baseURL
+	let baseURL = await DI.load(ServerEnvironment.self).baseURL
 	guard let stubFile = Bundle(for: FakeClass.self).url(forResource: stubFileName, withExtension: "json")?.path(percentEncoded: false) else {
 		throw StubError.noStubFile
 	}

@@ -50,7 +50,8 @@ final class Note: Identifiable {
 			let request = try HTTPURLRequest(
 				url: DI.load(ServerEnvironment.self).baseURL / "notes" / self.id,
 				httpMethod: .patch,
-				bodyDictionary: newChanges,
+				body: newChanges,
+				encoder: JSONBodyEncoder(),
 				headers: ["Content-Type": "application/json"]
 			)
 

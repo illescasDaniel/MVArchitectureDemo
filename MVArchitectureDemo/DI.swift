@@ -2,9 +2,14 @@ import DIC
 import HTTIES
 import Foundation
 
-actor DI {
+nonisolated enum DI {
+
+	static func load<T>(_ type: T.Type = T.self) -> T {
+		DI.container.load(type)
+	}
+
 #if DEBUG
-	private static var container: ImmutableDependencyInjectionContainer = {
+	nonisolated(unsafe) private static var container: ImmutableDependencyInjectionContainer = {
 		let builder = DICBuilder()
 		if Config.isRunningUnitTests {
 			// left blank on purpose, these dependencies will be registered by reassigning DI to another container in the unit tests target
@@ -24,6 +29,8 @@ actor DI {
 					mockHTTPClient,
 					as: HTTPClient.self
 				)
+				.register(JSONEncoder())
+				.register(JSONDecoder())
 		} else {
 			builder
 				.registerSingleton(ServerEnvironment.localApp)
@@ -39,6 +46,8 @@ actor DI {
 					),
 					as: HTTPClient.self
 				)
+				.register(JSONEncoder())
+				.register(JSONDecoder())
 		}
 		return builder.build()
 	}()
@@ -53,10 +62,8 @@ actor DI {
 			HTTPClientImpl(httpDataRequestHandler: URLSession(configuration: .default)),
 			as: HTTPClient.self
 		)
+		.register(JSONEncoder())
+		.register(JSONDecoder())
 		.build()
 #endif
-
-	static func load<T>(_ type: T.Type = T.self) -> T {
-		DI.container.load(type)
-	}
 }

@@ -27,7 +27,8 @@ final class NoteList {
 	static func fetchAll() async throws -> [NoteDTO] {
 		try await ServerAvailabilityManager.checkAvailability()
 		let request = try HTTPURLRequest(url: DI.load(ServerEnvironment.self).baseURL / "notes")
-		let noteDTOs = try await DI.load(HTTPClient.self).sendRequest(request, decoding: [NoteDTO].self)
+		let httpClient = DI.load(HTTPClient.self)
+		let noteDTOs = try await httpClient.sendRequest(request, decoding: [NoteDTO].self, decoder: DI.load(JSONDecoder.self))
 		return noteDTOs
 	}
 
@@ -104,11 +105,12 @@ final class NoteList {
 		let request = try HTTPURLRequest(
 			url: DI.load(ServerEnvironment.self).baseURL / "notes",
 			httpMethod: .post,
-			bodyDictionary: noteData.dictionary,
+			body: noteData.dictionary,
+			encoder: JSONBodyEncoder(),
 			headers: ["Content-Type": "application/json"]
 		)
 
-		let createdNoteDTO = try await DI.load(HTTPClient.self).sendRequest(request, decoding: NoteDTO.self)
+		let createdNoteDTO = try await DI.load(HTTPClient.self).sendRequest(request, decoding: NoteDTO.self, decoder: DI.load(JSONDecoder.self))
 		let createdNote = Note(createdNoteDTO)
 
 		if let indexOfNoteToReplace = notes.firstIndex(where: { $0.id == String() && $0.hasSameData(as: createdNote) }) {

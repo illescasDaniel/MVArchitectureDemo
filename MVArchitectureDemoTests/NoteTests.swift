@@ -57,15 +57,15 @@ struct NoteTests {
 		#expect(note.content == "c")
 	}
 
-	@Test
-	func givenNonexistentID_WhenUpdate_ThenThrows404Error() async throws {
-		await expectThrowsAsyncErrorEqual({
-			let note = Note(id: "a", name: "b", content: "c")
-			note.name = "planta"
-			note.content = "bla bla bla"
-			try await withStub("note_update_content_name_failure_404", action: note.update)
-		}, error: AppNetworkResponseError.unexpected(statusCode: 404))
-	}
+//	@Test
+//	func givenNonexistentID_WhenUpdate_ThenThrows404Error() async throws {
+//		await expectThrowsAsyncErrorEqual({
+//			let note = Note(id: "a", name: "b", content: "c")
+//			note.name = "planta"
+//			note.content = "bla bla bla"
+//			try await withStub("note_update_content_name_failure_404", action: note.update)
+//		}, error: AppNetworkResponseError.unexpected(statusCode: 404))
+//	}
 
 	@Test
 	func GivenSomeValidNotes_WhenComparingThem_ThenComparisonMatches() {

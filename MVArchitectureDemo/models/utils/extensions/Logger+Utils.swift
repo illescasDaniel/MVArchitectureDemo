@@ -8,7 +8,7 @@
 import SwiftUI
 import os
 
-extension Logger {
+nonisolated extension Logger {
 	static func current<T>(for classType: T.Type) -> Logger {
 		Logger(
 			subsystem: Bundle.main.bundleIdentifier ?? "App",

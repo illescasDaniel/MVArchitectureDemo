@@ -13,7 +13,7 @@ extension AppNetworkRequestError: @retroactive LocalizedError {
 		switch self {
 		case let .invalidScheme(scheme):
 			return "Invalid scheme: \(String(describing: scheme))"
-		case let .invalidJSONObject(object):
+		case let .invalidObject(object):
 			return "Invalid JSON object: \(object)"
 		}
 	}

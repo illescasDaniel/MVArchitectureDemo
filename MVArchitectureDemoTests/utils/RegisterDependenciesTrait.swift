@@ -11,7 +11,7 @@ import HTTIES
 import Foundation
 @testable import MVArchitectureDemo
 
-struct RegisterDependenciesTrait: SuiteTrait, TestScoping {
+nonisolated struct RegisterDependenciesTrait: SuiteTrait, TestScoping {
 	
 	func provideScope(for test: Test, testCase: Test.Case?, performing function: @Sendable () async throws -> Void) async throws {
 		if test.isSuite {
@@ -27,11 +27,13 @@ struct RegisterDependenciesTrait: SuiteTrait, TestScoping {
 				HTTPClientImpl(httpDataRequestHandler: URLSession(configuration: .ephemeral)),
 				as: HTTPClient.self
 			)
+			.register(JSONEncoder())
+			.register(JSONDecoder())
 			.build()
 		DI.updateContainer(newDependencies)
 	}
 }
 
 extension Trait where Self == RegisterDependenciesTrait {
-	static var registerDependencies: Self { Self() }
+	nonisolated static var registerDependencies: Self { Self() }
 }

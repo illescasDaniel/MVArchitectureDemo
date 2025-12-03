@@ -7,8 +7,7 @@
 
 import XCTest
 
-@MainActor
-final class MVArchitectureDemoUITestsLaunchTests: XCTestCase {
+nonisolated final class MVArchitectureDemoUITestsLaunchTests: XCTestCase {
 
 	override class var runsForEachTargetApplicationUIConfiguration: Bool {
 		true
@@ -18,7 +17,7 @@ final class MVArchitectureDemoUITestsLaunchTests: XCTestCase {
 		continueAfterFailure = false
 	}
 
-	func testLaunch() throws {
+	@MainActor func testLaunch() throws {
 		let app = XCUIApplication()
 		app.launch()
 

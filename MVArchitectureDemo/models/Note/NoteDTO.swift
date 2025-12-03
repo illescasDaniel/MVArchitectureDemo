@@ -6,7 +6,7 @@
 //
 
 /// A data transfer object, just useful for transfering its data across. You should convert it to Note to use it.
-struct NoteDTO: DictionaryRepresentable, Equatable, Sendable, Identifiable {
+nonisolated struct NoteDTO: @MainActor DictionaryRepresentable, Equatable, Sendable, Identifiable {
 	let id: String
 	let name: String
 	let content: String

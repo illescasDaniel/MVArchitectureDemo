@@ -10,7 +10,7 @@ import Foundation
 import HTTIES
 import SwiftUI
 
-struct MockRequest: Hashable, ExpressibleByStringLiteral {
+nonisolated struct MockRequest: Hashable, ExpressibleByStringLiteral {
 	let path: String
 	let method: String
 
@@ -24,14 +24,18 @@ struct MockRequest: Hashable, ExpressibleByStringLiteral {
 	}
 }
 
-final class MockHTTPClient: HTTPClient, HTTPInterceptorMixin {
+struct MockHTTPClient: HTTPClient, HTTPInterceptorMixin {
 
 	static let anyRequest = MockRequest(path: "*", method: "*")
-	private var stubResponseForRequest: [MockRequest: (Data, HTTPURLResponse)] = [:]
-	private var stubErrorForRequest: [MockRequest: Error] = [:]
+
+	final class StubForRequest: @unchecked Sendable {
+		var stubResponseForRequest: [MockRequest: (Data, HTTPURLResponse)] = [:]
+		var stubErrorForRequest: [MockRequest: Error] = [:]
+	}
+	private let stubs = StubForRequest()
 	private let defaultClient = HTTPClientImpl(httpDataRequestHandler: URLSession(configuration: .ephemeral))
-	var requestInterceptors: [any HTTPRequestInterceptor]
-	var responseInterceptors: [any HTTPResponseInterceptor]
+	let requestInterceptors: [any HTTPRequestInterceptor]
+	let responseInterceptors: [any HTTPResponseInterceptor]
 
 	init(requestInterceptors: [any HTTPRequestInterceptor] = [], responseInterceptors: [any HTTPResponseInterceptor] = []) {
 		self.requestInterceptors = requestInterceptors
@@ -44,10 +48,10 @@ final class MockHTTPClient: HTTPClient, HTTPInterceptorMixin {
 		let request = MockRequest(path: path, method: method)
 		let anyMethodForRequest = MockRequest(path: path, method: "*")
 
-		if let (data, response) = stubResponseForRequest[request] ?? stubResponseForRequest[anyMethodForRequest] ?? stubResponseForRequest[Self.anyRequest] {
+		if let (data, response) = stubs.stubResponseForRequest[request] ?? stubs.stubResponseForRequest[anyMethodForRequest] ?? stubs.stubResponseForRequest[Self.anyRequest] {
 			return (data, response)
 		}
-		if let error = stubErrorForRequest[request] ?? stubErrorForRequest[anyMethodForRequest] ?? stubErrorForRequest[Self.anyRequest] {
+		if let error = stubs.stubErrorForRequest[request] ?? stubs.stubErrorForRequest[anyMethodForRequest] ?? stubs.stubErrorForRequest[Self.anyRequest] {
 			throw error
 		}
 		
@@ -63,22 +67,22 @@ final class MockHTTPClient: HTTPClient, HTTPInterceptorMixin {
 
 	@discardableResult
 	func setMock(data: Data = Data(), response: HTTPURLResponse, for request: MockRequest = MockHTTPClient.anyRequest) -> MockHTTPClient{
-		stubResponseForRequest[request] = (data, response)
-		stubErrorForRequest.removeValue(forKey: request)
+		stubs.stubResponseForRequest[request] = (data, response)
+		stubs.stubErrorForRequest.removeValue(forKey: request)
 		return self
 	}
 
 	@discardableResult
 	func setMock(error: Error, for request: MockRequest = MockHTTPClient.anyRequest) -> MockHTTPClient {
-		stubResponseForRequest.removeValue(forKey: request)
-		stubErrorForRequest[request] = error
+		stubs.stubResponseForRequest.removeValue(forKey: request)
+		stubs.stubErrorForRequest[request] = error
 		return self
 	}
 
 	@discardableResult
 	func removeMockData() -> MockHTTPClient {
-		stubResponseForRequest.removeAll()
-		stubErrorForRequest.removeAll()
+		stubs.stubResponseForRequest.removeAll()
+		stubs.stubErrorForRequest.removeAll()
 		return self
 	}
 }
