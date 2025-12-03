@@ -1080,16 +1080,16 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/illescasDaniel/DIC";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.4.3;
 			};
 		};
 		6507836A2BCAC5EA00D0F6EF /* XCRemoteSwiftPackageReference "HTTIES" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/illescasDaniel/HTTIES";
 			requirement = {
-				branch = main;
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.0.2;
 			};
 		};
 		6586B96D2BE6A8CB009AAC5E /* XCRemoteSwiftPackageReference "WMUTE" */ = {
